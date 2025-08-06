@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+		<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+	<%@ taglib prefix = "sql" uri = "http://java.sun.com/jsp/jstl/sql" %>
+	<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <section class="menu-section">
 	<div class="container">
 		<div class="row">
@@ -7,6 +11,10 @@
 				<div class="navbar-collapse collapse ">
 					<ul id="menu-top" class="nav navbar-nav navbar-right">
 						<li><a href="dashboard.jsp">Home</a></li>
+						<c:if test = "${roleId !=3}">	
+						<li><a href="dashboard.jsp">Create Intends</a></li>
+						</c:if>
+					<c:if test = "${roleId !=1}">	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
 							data-toggle="dropdown">Construction Details <i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu" role="menu"
@@ -57,7 +65,7 @@
 									<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="SupplierPaymentDetails.jsp">Advocate Work Details</a></li>
 							</ul></li>
-
+					</c:if>	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
 							data-toggle="dropdown"><font color="#ff8c00"><%=session.getAttribute("uname")%>&nbsp;<i
 								class="fa fa-angle-down"></i></font></a>
@@ -67,7 +75,12 @@
 									href="admin-my-account.jsp">My Accounts</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="admin-change-own-password.jsp">Change Password</a></li>
-							</ul></li>
+							<c:if test = "${roleId !=1}">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="RegisterUser.jsp">Register User</a></li>
+							</c:if>		
+							</ul>
+							</li>		
 					</ul>
 				</div>
 			</div>
