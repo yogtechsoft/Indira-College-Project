@@ -12,7 +12,8 @@
 					<ul id="menu-top" class="nav navbar-nav navbar-right">
 						<li><a href="dashboard.jsp">Home</a></li>
 						<c:if test = "${roleId !=3}">	
-						<li><a href="dashboard.jsp">Create Intends</a></li>
+						<li><a href="CreateIndent.jsp">Create Indent</a></li>
+						<li><a href="ViewIndentReport.jsp">View Intent Details</a></li>
 						</c:if>
 					<c:if test = "${roleId !=1}">	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"

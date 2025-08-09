@@ -43,6 +43,7 @@ public class AdminLogin extends HttpServlet {
 			String userName="";
 			String password="";
 			String displayName="";
+			int id=0;
 			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("select * from tblcaptcha");
 			if (captchResultSet.next()) {
 				captchaDB = captchResultSet.getString(2);
@@ -57,11 +58,18 @@ public class AdminLogin extends HttpServlet {
 					 displayName=resultset.getString("name");
 					 
 				}
+				
 				if(roleId.equals("1") ) {
 					if (email.equals(userName) && pass.equals(password)) {
 						hs.setAttribute("uname",displayName );
+						ResultSet dd = st.executeQuery("SELECT id,insitiute_name FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(dd.next()) {
+							id =dd.getInt("id");
+						}
+						 session.setAttribute("userId", id);
+						 name.setAttribute("roleId",roleId );
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
-						name.setAttribute("roleId",roleId );
 					} else {
 						String message = "You have enter wrong credentials";
 						hs.setAttribute("credential", message);

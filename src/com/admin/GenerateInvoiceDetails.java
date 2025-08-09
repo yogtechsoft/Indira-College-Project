@@ -59,36 +59,37 @@ public class GenerateInvoiceDetails extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			String customerId = request.getParameter("custName");
+			String customerId = request.getParameter("srNo");
 			Document document = new Document();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_customer_register` WHERE id="+customerId);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_indent_save_details` WHERE id="+customerId);
 			String customerName=null;
 			String address=null;
 			String mobileNo=null;
 			String area=null;
 			String rate=null;
 			String totalAmpunt=null;
-			
+			String instituteName="";
+			String date="";
+			String indenterName="";
+			String department="";
 			while(captchResultSet.next()) {
-				customerName=captchResultSet.getString("customerName");
-				address=captchResultSet.getString("siteAddress");
-				mobileNo=captchResultSet.getString("ownerMobile");
-				area=captchResultSet.getString("Area");
-				rate=captchResultSet.getString("Rate");
-				totalAmpunt=captchResultSet.getString("totalAmount");
-				
+				instituteName=captchResultSet.getString("institute_name");
+				date=captchResultSet.getString("date");
+				indenterName=captchResultSet.getString("indenter_name");
+				department=captchResultSet.getString("department");
+
 			}
 
-			 //PdfWriter.getInstance(document, new FileOutputStream("D:/bkp/INVOICE DETAILS_"+customerName+".pdf"));  //for UAT
-			 PdfWriter.getInstance(document, new FileOutputStream("/home/yogtechs/upload/INVOICE DETAILS_"+customerName+".pdf"));//for Prod
+			 PdfWriter.getInstance(document, new FileOutputStream("D:/bkp/INVOICE DETAILS_"+customerName+".pdf"));  //for UAT
+			 //PdfWriter.getInstance(document, new FileOutputStream("/home/yogtechs/upload/INVOICE DETAILS_"+customerName+".pdf"));//for Prod
 
 
 			 document.open();
 			 //Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
 			 //Chunk chunk = new Chunk("Hello World", font);
-            Font fontSize_10 =  FontFactory.getFont(FontFactory.TIMES, 15f);
+            Font fontSize_10 =  FontFactory.getFont(FontFactory.TIMES, 18f);
             Font fontSize_12 =  FontFactory.getFont(FontFactory.TIMES, 20f);
-            Font fontSize_11 =  FontFactory.getFont(FontFactory.TIMES, 10f);
+            Font fontSize_11 =  FontFactory.getFont(FontFactory.TIMES, 18f);
             Font fontSize_16 =  FontFactory.getFont(FontFactory.COURIER_BOLD, 17f);
             
           //for invoice Generated
@@ -97,37 +98,43 @@ public class GenerateInvoiceDetails extends HttpServlet{
 			int newRandomCaptcha = random.nextInt(9000) + 10000;
 
           
-            Paragraph invoice = new Paragraph("INVOICE",fontSize_12);
-            invoice.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            Paragraph invoice = new Paragraph("Shree Chanakya Education Society",fontSize_12);
+            invoice.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 			 document.add(invoice);
 
-			 Paragraph paragraph01 = new Paragraph("Yogeshwar Technology & Solution",fontSize_10);
-	         paragraph01.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+			 Paragraph paragraph01 = new Paragraph("Indira Group Of Institutes",fontSize_10);
+	         paragraph01.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 			 document.add(paragraph01);
 			 
-			 Paragraph paragraph1 = new Paragraph("City:-Mumbai,State:-Mahashatra,Zip:-400604",fontSize_11);
-	         paragraph1.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+			 Paragraph paragraph1 = new Paragraph("85/5A Tathwade Pune 411 044",fontSize_11);
+	         paragraph1.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 			 document.add(paragraph1);
 			 
-			 Paragraph paragraph12 = new Paragraph("Address:-near Hinjwadi phase 1 pune",fontSize_11);
-	         paragraph12.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+			 Paragraph paragraph12 = new Paragraph("Work Indent",fontSize_11);
+	         paragraph12.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
 			 document.add(paragraph12);
-			 
+	         document.add(Chunk.NEWLINE); // space after title
+
+
 			 String pattern = "dd-MM-yyyy";
 			 String dateInString =new SimpleDateFormat(pattern).format(new Date());
-		    PdfPTable table = new PdfPTable(2);
-		    table.setHorizontalAlignment(Element.ALIGN_RIGHT);
-			table.setWidthPercentage(160 / 5.23f);
-		    table.addCell(("Invoice No")); 
-	        table.addCell(""+(newRandomCaptcha)); 
-	        table.addCell(("Date")); 
-	        table.addCell((dateInString)); 
-	        table.addCell(("Customer Id")); 
-	        table.addCell((customerId)); 
-	        table.addCell(("Location")); 
-	        table.addCell(("Pune")); 
+		    PdfPTable table = new PdfPTable(1);
+		    table.setHorizontalAlignment(Element.ALIGN_CENTER);
+		    table.setWidthPercentage(100);
+		    table.addCell(("INSTITUTE/COLLEGE : "+instituteName)); 
             // Add table in document
 	        document.add(table);
+	        Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
+	        PdfPTable srno = new PdfPTable(4);
+	        srno.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        srno.setWidthPercentage(100);
+	        
+	        srno.addCell(("Sr No : "+customerId)); 
+	        srno.addCell(("Date : "+date)); 
+	        srno.addCell(("Indenter : "+indenterName)); 
+	        srno.addCell(("Department : "+department)); 
+            // Add table in document
+	        document.add(srno);
 	      
 	        LineSeparator ls = new LineSeparator();
 	        document.add(new Chunk(ls));
@@ -142,7 +149,7 @@ public class GenerateInvoiceDetails extends HttpServlet{
 		    document.add(paragraph16);
 			
 		    //fetch Customer Details
-			
+			/*
 			PdfPTable table2 = new PdfPTable(3);
 			table2.setWidthPercentage(100);
 			table2.addCell(getCell("Customer Name :-" +customerName, PdfPCell.ALIGN_LEFT));
@@ -241,7 +248,7 @@ public class GenerateInvoiceDetails extends HttpServlet{
 		    Paragraph paragraph23 = new Paragraph("Note:-If you have any query please contact with account dpeartment",fontSize_10);
 		    document.add(new Phrase("\n"));
 		    paragraph23.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
-		    document.add(paragraph23);
+		    document.add(paragraph23);*/
 		    
 		    Rectangle rect= new Rectangle(577,825,18,15);
 		    rect.enableBorderSide(1);
@@ -265,8 +272,8 @@ public class GenerateInvoiceDetails extends HttpServlet{
 			response.setHeader("Content-Disposition",
 			"attachment;filename=INVOICE DETAILS_"+customerName+".pdf");
 			
-			//File file = new File("D:/bkp/INVOICE DETAILS_"+customerName+".pdf");  //for UAT
-			File file = new File("/home/yogtechs/upload/INVOICE DETAILS_"+customerName+".pdf"); //for PROD
+			File file = new File("D:/bkp/INVOICE DETAILS_"+customerName+".pdf");  //for UAT
+			//File file = new File("/home/yogtechs/upload/INVOICE DETAILS_"+customerName+".pdf"); //for PROD
 			FileInputStream fileIn = new FileInputStream(file);
 			ServletOutputStream out11 = response.getOutputStream();
 
