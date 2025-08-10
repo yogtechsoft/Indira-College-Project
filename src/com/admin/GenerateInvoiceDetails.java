@@ -72,11 +72,32 @@ public class GenerateInvoiceDetails extends HttpServlet{
 			String date="";
 			String indenterName="";
 			String department="";
+			String workDescription="";
+			String material_workload="";
+			String quantity="";
+			String locationRework="";
+			String specificAgency="";
+			String estimatedIndentValue="";
+			String deliveryDate="";
+			String work_completion="";
+			String previous_if_any="";
+			String anyOther="";
 			while(captchResultSet.next()) {
 				instituteName=captchResultSet.getString("institute_name");
 				date=captchResultSet.getString("date");
 				indenterName=captchResultSet.getString("indenter_name");
 				department=captchResultSet.getString("department");
+				workDescription=captchResultSet.getString("work_descrption");
+				material_workload=captchResultSet.getString("material_required");
+				quantity=captchResultSet.getString("qunatitiy");
+				locationRework=captchResultSet.getString("location_reason_work");
+				specificAgency=captchResultSet.getString("specific_agency");
+				estimatedIndentValue=captchResultSet.getString("estimated_indent_value");
+				deliveryDate=captchResultSet.getString("delivery_requred");
+				work_completion=captchResultSet.getString("workCompletion");
+				previous_if_any=captchResultSet.getString("previous_indent");
+				anyOther=captchResultSet.getString("other_remark");
+
 
 			}
 
@@ -115,6 +136,8 @@ public class GenerateInvoiceDetails extends HttpServlet{
 			 document.add(paragraph12);
 	         document.add(Chunk.NEWLINE); // space after title
 
+	         LineSeparator ls = new LineSeparator();
+		        document.add(new Chunk(ls));
 
 			 String pattern = "dd-MM-yyyy";
 			 String dateInString =new SimpleDateFormat(pattern).format(new Date());
@@ -135,11 +158,76 @@ public class GenerateInvoiceDetails extends HttpServlet{
 	        srno.addCell(("Department : "+department)); 
             // Add table in document
 	        document.add(srno);
-	      
-	        LineSeparator ls = new LineSeparator();
-	        document.add(new Chunk(ls));
 	        
-	        Paragraph paragraph15 = new Paragraph("Customer Details",fontSize_16);
+	        PdfPTable work_Description = new PdfPTable(3);
+	        work_Description.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        work_Description.setWidthPercentage(100);
+	        
+	        work_Description.addCell(("Work Description : "+workDescription)); 
+	        work_Description.addCell(("Material Required (IF KNOW) : "+material_workload)); 
+	        work_Description.addCell(("Quantity : "+quantity));
+	        
+	        document.add(work_Description);
+
+	        PdfPTable location = new PdfPTable(1);
+	        location.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        location.setWidthPercentage(100);
+	        location.addCell(("Location for Reason For Work : "+locationRework));
+	        document.add(location);
+	        
+	        PdfPTable agency = new PdfPTable(1);
+	        agency.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        agency.setWidthPercentage(100);
+	        agency.addCell(("Specific Agency,If Any : "+specificAgency));
+	        document.add(agency);
+	        
+	        PdfPTable indentEstimatedValue = new PdfPTable(1);
+	        indentEstimatedValue.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        indentEstimatedValue.setWidthPercentage(100);
+	        indentEstimatedValue.addCell(("Estimated Indent Value .(RS) : "+estimatedIndentValue));
+	        document.add(indentEstimatedValue);
+	        
+	        PdfPTable delivery_Date = new PdfPTable(1);
+	        delivery_Date.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        delivery_Date.setWidthPercentage(100);
+	        delivery_Date.addCell(("Delivery Required By (Date) : "+deliveryDate));
+	        document.add(delivery_Date);
+	        
+	        PdfPTable workcompletion_by = new PdfPTable(1);
+	        workcompletion_by.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        workcompletion_by.setWidthPercentage(100);
+	        workcompletion_by.addCell(("Work Completion By (Date) : "+work_completion));
+	        document.add(workcompletion_by);
+	        
+	        PdfPTable previous = new PdfPTable(1);
+	        previous.setHorizontalAlignment(Element.ALIGN_CENTER);
+	        previous.setWidthPercentage(100);
+	        previous.addCell(("Previous Indent Ref. (If Any) : "+previous_if_any));
+	        document.add(previous);
+	        
+	        PdfPTable other_remark = new PdfPTable(1);
+	        other_remark.setHorizontalAlignment(Element.ALIGN_LEFT);
+	        other_remark.setWidthPercentage(100);
+	        other_remark.addCell(("Any Other Remark : "+anyOther));
+	        document.add(other_remark);
+	         document.add(Chunk.NEWLINE); // space after title
+
+	        
+			PdfPTable footerTable = new PdfPTable(4); // 4 columns
+            footerTable.setWidthPercentage(100);
+            footerTable.setWidths(new float[]{2, 2, 2, 3}); // adjust width ratios
+
+            footerTable.addCell(getFooterCell("Indentor"));
+            footerTable.addCell(getFooterCell("HOD"));
+            footerTable.addCell(getFooterCell("Director"));
+            footerTable.addCell(getFooterCell("AUTHORIZED SIGNATORY"));
+
+            document.add(footerTable);
+
+			
+			 
+	        
+	        Paragraph paragraph15 = new Paragraph("",fontSize_16);
 	        document.add(new Phrase("\n \n"));
 	        paragraph15.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
 			document.add(paragraph15);
@@ -318,4 +406,11 @@ public class GenerateInvoiceDetails extends HttpServlet{
 			e.printStackTrace();
 		}
 	}
+	
+	private PdfPCell getFooterCell(String text) {
+        PdfPCell cell = new PdfPCell(new Phrase(text, FontFactory.getFont(FontFactory.HELVETICA, 10, Font.BOLD)));
+        cell.setBorder(Rectangle.NO_BORDER);
+        cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+        return cell;
+    }
 }
