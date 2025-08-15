@@ -11,11 +11,17 @@
 				<div class="navbar-collapse collapse ">
 					<ul id="menu-top" class="nav navbar-nav navbar-right">
 						<li><a href="dashboard.jsp">Home</a></li>
-						<c:if test = "${roleId !=3}">	
+						<c:if test = "${roleId !=3 && roleId !=2 && roleId !=4}">	
 						<li><a href="CreateIndent.jsp">Create Indent</a></li>
 						<li><a href="ViewIndentReport.jsp">View Intent Details</a></li>
 						</c:if>
-					<c:if test = "${roleId !=1}">	
+						<c:if test = "${ roleId ==2}">
+						<li><a href="ViewIndentForHOD.jsp">View Indent</a></li>
+						</c:if>
+						<c:if test = "${ roleId ==4}">
+						<li><a href="ViewIndentForHOD.jsp">View Indent Details</a></li>
+						</c:if>
+					<c:if test = "${roleId !=1 && roleId !=2 && roleId !=4}">	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
 							data-toggle="dropdown">Construction Details <i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu" role="menu"
@@ -76,9 +82,13 @@
 									href="admin-my-account.jsp">My Accounts</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="admin-change-own-password.jsp">Change Password</a></li>
-							<c:if test = "${roleId !=1}">
+							<c:if test = "${roleId !=1 && roleId !=2 && roleId !=4}">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="RegisterUser.jsp">Register User</a></li>
+							</c:if>	
+							<c:if test = "${roleId == 3}">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="IndentDetailsProject.jsp">View Indent Report</a></li>
 							</c:if>		
 							</ul>
 							</li>		

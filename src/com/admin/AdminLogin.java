@@ -44,6 +44,9 @@ public class AdminLogin extends HttpServlet {
 			String password="";
 			String displayName="";
 			int id=0;
+			int role=0;
+			String isb="";
+			int instid=0;
 			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("select * from tblcaptcha");
 			if (captchResultSet.next()) {
 				captchaDB = captchResultSet.getString(2);
@@ -79,7 +82,19 @@ public class AdminLogin extends HttpServlet {
 				}else if(isActive.equals("Y") && roleId.equals("2")) {
 					if (email.equals(userName) && pass.equals(password)) {
 						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,insitiute_name,role_id,institute_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+							isb=institute.getString("insitiute_name");
+							instid=institute.getInt("institute_id");
+						}
+						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						name.setAttribute("instituteName",isb );
+						name.setAttribute("instid",instid );
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -87,7 +102,46 @@ public class AdminLogin extends HttpServlet {
 						response.sendRedirect("admin-login.jsp");
 						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
 					}
-				}else {
+				}else if(isActive.equals("Y") && roleId.equals("3")) {
+					if (email.equals(userName) && pass.equals(password)) {
+						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+						}
+						 session.setAttribute("userId", id);
+						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+					} else {
+						String message = "You have enter wrong credentials";
+						name.setAttribute("credential", message);
+						response.sendRedirect("admin-login.jsp");
+						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
+					}
+				}else if(isActive.equals("Y") && roleId.equals("4")) {
+					if (email.equals(userName) && pass.equals(password)) {
+						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+						}
+						 session.setAttribute("userId", id);
+						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+					} else {
+						String message = "You have enter wrong credentials";
+						name.setAttribute("credential", message);
+						response.sendRedirect("admin-login.jsp");
+						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
+					}
+				}
+				else {
 					hs.setAttribute("uname",displayName );
 					response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					name.setAttribute("roleId",roleId );

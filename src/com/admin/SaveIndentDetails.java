@@ -33,11 +33,9 @@ public class SaveIndentDetails extends HttpServlet {
 		String previousRef = request.getParameter("previousRef");
 		String remark = request.getParameter("remark");
 		HttpSession hs=request.getSession();
-		String roleName="";
 		String instituteName="";
-		String password="";
-		String finaName="";
-		String is_active="";
+		int role=2;
+		String Hod_status="";
 		 Integer userId = (Integer) hs.getAttribute("userId");
 
 		try {
@@ -51,8 +49,8 @@ public class SaveIndentDetails extends HttpServlet {
 					String status="Waiting For Approval";
 			
 			int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-					"insert into `tbl_indent_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id)"
-					+ "values('" + instituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+")");
+					"insert into `tbl_indent_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date)"
+					+ "values('" + instituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+InstituteName+",'"+Hod_status+"','"+Hod_status+"')");
 			if (addCustomer > 0) {
 				
 				String message="Data Added successfully.";

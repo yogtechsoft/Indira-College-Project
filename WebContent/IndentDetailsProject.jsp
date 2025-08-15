@@ -71,10 +71,7 @@
 				<div class="col-md-12">
 					<h4 class="header-line">View Indent Details
 					</h4>
-					
-			        <h4 style="text-align:center;color:red;" id="remarkLabel">Your Application Has been Rejected By Hod Please Check Remark</h4>
-						
-	<div class="modal fade" id="myModal" role="dialog">
+								<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -129,7 +126,7 @@
 					
   
 </div>
-<form role="form" action="UpdateApplicationStatusAdmin" method="post">
+<form role="form" action="saveIndentProjectDetails" method="post" enctype="multipart/form-data">
 
 	<div class="row">
 		
@@ -145,8 +142,11 @@
 									<%
 										int ip = 0;
 									 HttpSession asad = request.getSession();
-									 Integer userId = (Integer) session.getAttribute("userId");	
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_indent_save_details` WHERE user_id="+userId);
+									
+									 Integer roleId=(Integer) session.getAttribute("role");
+									 Integer instId=(Integer) session.getAttribute("instid");
+									 String status="Waiting For Approval";
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_project_department_application_details` WHERE role_id="+roleId+" and status='"+status+"'");
 										while (contractorName.next()) {
 										ip++;
 									%>
@@ -160,12 +160,11 @@
 				  </div>
 				</div>
 				
-				
 				<div class="col-md-3" style="margin-top: 31px;">
 					<div class="form-group">
 							<button type="button" id="downloadPDF" name="downloadPDF" class="btn btn-success">download Indent Report</button>								 
 					</div>
-				</div>
+				</div>	
 			</div>	
 			
 			<div class="row" id="instituteNameDetails">
@@ -193,7 +192,7 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Date</label> 
-						 <input class="form-control" type="date" name="date" id="date"  required="required" />
+						 <input class="form-control" type="text" name="date" id="date"  required="required" />
 					</div>
 				</div>
 				<div class="col-md-3">
@@ -268,18 +267,37 @@
 			  		</div>
 		 		</div>	
 		 		
+		 		<div class="col-md-3">
+					<div class="form-group">
+						<label>Select Action</label>
+						<select class="form-control"  name="actionRemark" id="actionRemark" required="required"> 
+							<option value="0">Select</option>
+							<option value="1">Approved</option>
+						</select>
+						
+			  		</div>
+		 		</div>	
 		 		
+		 		<div class="col-md-3" id="rmk">
+					<div class="form-group">
+						<label>Upload Document</label>
+						<input class="form-control" type="file" name="document"  />
+			  		</div>
+		 		</div>	
+		 		
+		 		<div class="col-md-3">
+					<div class="form-group">
+						<label>Date</label>
+						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  />
+			  		</div>
+		 		</div>	
 		  	</div>
 		  			<button type="submit" class="btn btn-success">Save</button>
-		  	<input type="hidden" id="labelValue" name="labelValue" />
-		</form>
-		
-						
-		</div>
-		<br>
-		<br>
-		<hr>
-		<div class="row">
+		  			<br>
+		  			<br>
+		  			<hr>
+		  			
+		  			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-success">
 						<div class="panel-heading">Indent Report Summary</div>
@@ -302,9 +320,6 @@
 											<th>Work Completion By</th>
 											<th>Previous Indent Ref</th>
 											<th>Any Other Remark</th>
-											<th>Hod Remark</th>
-											<th>Hod Approve / Rejected Date</th>
-											
 										</tr>
 									</thead>
 									<tbody id="fetchValue">
@@ -318,7 +333,9 @@
 				</div>
 
 			</div>
-	
+		  	
+		</form>
+		</div>
 	</div>
 
 </div>
@@ -381,62 +398,29 @@
 	<script>
 	
 	 window.onload = function() {
+         document.getElementById("rmk").style.display = "none"; 
          document.getElementById("instituteNameDetails").style.display = "none"; 
          document.getElementById("indentName").style.display = "none"; 
          document.getElementById("materialKnow").style.display = "none"; 
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
-         document.getElementById("remarkLabel").style.display = "none"; 
 
      };
      
      $("#downloadPDF").click(function(){
     	 var srNo = $('#srNo').val();
-    	    window.location.href = 'GenerateInvoiceDetails?srNo=' + srNo;
+    	    window.location.href = 'GenerateIndentReportProject?srNo=' + srNo;
      });
     
      
-	$("#srNo").change(function(){
-		$.ajax({
-			url : 'fetchIndentDetailsforHOD',
-			data : {
-				srNo:$("#srNo").val()
-			},
-			success : function(responseText) { 
-				 $("#getSupplierValue").find("tr:not(:first)").remove();     
-		         $("#instituteNameDetails").show();
-		         $("#indentName").show();
-		         $("#materialKnow").show();
-		         $("#estimated").show();
-		         $("#OtherRemark").show();
-					var dataTablesObj = $.parseJSON(responseText);
-					
-				$("#instituteName").val(dataTablesObj[0].instituteName);
-				$("#indenterName").val(dataTablesObj[0].indenterName);
-				$("#department").val(dataTablesObj[0].department);
-				$("#date").val(dataTablesObj[0].date);
-				$("#workDescription").val(dataTablesObj[0].workDescription);
-				$("#materialRequired").val(dataTablesObj[0].materialRequired);
-				$("#quantity").val(dataTablesObj[0].quantity);
-				$("#reasonWork").val(dataTablesObj[0].reasonWork);
-				$("#specificAgency").val(dataTablesObj[0].specificAgency);
-				$("#indentValue").val(dataTablesObj[0].indentValue);
-				$("#deliveryRequired").val(dataTablesObj[0].deliveryRequired);
-				$("#workCompletion").val(dataTablesObj[0].workCompletion);
-				$("#previousRef").val(dataTablesObj[0].previousRef);
-				$("#remark").val(dataTablesObj[0].remark);
-			
-				
-				
-				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td>"+dataTablesObj[i].hodRemark+"</td><td>"+dataTablesObj[i].hodAppreovedDate+"</td></tr>")
-					}
-				
-				}	
-			
-			
-		});
-	});
+     $("#actionRemark").change(function(){
+    	 var value=$("#actionRemark").val();
+    	 if(value=="1"){
+    		$("#rmk").show(); 
+    	 }else{
+     		$("#rmk").hide(); 
+    	 }
+     });
 	
 	$("#customerName").change(function(){
 		$.ajax({
@@ -482,6 +466,57 @@
 				
 				
 			}
+		});
+	});
+	
+	$("#srNo").change(function(){
+		$.ajax({
+			url : 'fetchIndentDetailsforProject',
+			data : {
+				srNo:$("#srNo").val()
+			},
+			success : function(responseText) { 
+                $("#getSupplierValue").find("tr:not(:first)").remove();
+
+		         $("#instituteNameDetails").show();
+		         $("#indentName").show();
+		         $("#materialKnow").show();
+		         $("#estimated").show();
+		         $("#OtherRemark").show();
+		         
+				var dataTablesObj = $.parseJSON(responseText);
+				$("#instituteName").val(dataTablesObj[0].instituteName);
+				$("#indenterName").val(dataTablesObj[0].indenterName);
+				$("#department").val(dataTablesObj[0].department);
+				$("#date").val(dataTablesObj[0].date);
+				$("#workDescription").val(dataTablesObj[0].workDescription);
+				$("#materialRequired").val(dataTablesObj[0].materialRequired);
+				$("#quantity").val(dataTablesObj[0].quantity);
+				$("#reasonWork").val(dataTablesObj[0].reasonWork);
+				$("#specificAgency").val(dataTablesObj[0].specificAgency);
+				$("#indentValue").val(dataTablesObj[0].indentValue);
+				$("#deliveryRequired").val(dataTablesObj[0].deliveryRequired);
+				$("#workCompletion").val(dataTablesObj[0].workCompletion);
+				$("#previousRef").val(dataTablesObj[0].previousRef);
+				$("#remark").val(dataTablesObj[0].remark);
+				
+				$("#department").prop('readonly',true);
+				$("#date").prop('readonly',true);
+				$("#workDescription").prop('readonly',true);
+				$("#materialRequired").prop('readonly',true);
+				$("#quantity").prop('readonly',true);
+				$("#specificAgency").prop('readonly',true);
+				$("#indentValue").prop('readonly',true);
+				$("#deliveryRequired").prop('readonly',true);
+				$("#workCompletion").prop('readonly',true);
+				$("#previousRef").prop('readonly',true);
+				$("#remark").prop('readonly',true);
+				$("#reasonWork").prop('readonly',true);
+				
+				for(var i=0;i<=dataTablesObj.length;i++){
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td></tr>")
+					}
+				}	
 		});
 	});
 	

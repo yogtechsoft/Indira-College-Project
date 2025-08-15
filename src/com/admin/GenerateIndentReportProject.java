@@ -1,29 +1,22 @@
 package com.admin;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FileUtils;
 
 import com.connection.DatabaseConnection;
 import com.google.gson.Gson;
@@ -42,10 +35,10 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
-@WebServlet("/GenerateInvoiceDetails")
-public class GenerateInvoiceDetails extends HttpServlet{
-	
-    private final int ARBITARY_SIZE = 1048;
+@WebServlet("/GenerateIndentReportProject")
+public class GenerateIndentReportProject extends HttpServlet {
+
+private final int ARBITARY_SIZE = 1048;
 
     
 	public static PdfPCell getCell(String text, int alignment) {
@@ -61,7 +54,7 @@ public class GenerateInvoiceDetails extends HttpServlet{
 		try {
 			String customerId = request.getParameter("srNo");
 			Document document = new Document();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_indent_save_details` WHERE id="+customerId);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_project_department_application_details` WHERE id="+customerId);
 			String customerName=null;
 			String address=null;
 			String mobileNo=null;
