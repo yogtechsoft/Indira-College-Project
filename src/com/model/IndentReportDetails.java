@@ -18,6 +18,7 @@ public class IndentReportDetails {
 	private String remark;
 	private String hodRemark;
 	private String hodAppreovedDate;
+	private String fileName;
 	private String status;
 	public String getIndenterName() {
 		return indenterName;
@@ -115,12 +116,17 @@ public class IndentReportDetails {
 	public void setHodAppreovedDate(String hodAppreovedDate) {
 		this.hodAppreovedDate = hodAppreovedDate;
 	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	
+		
 }

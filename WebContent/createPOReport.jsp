@@ -69,7 +69,7 @@
 				}
 			%>
 				<div class="col-md-12">
-					<h4 class="header-line">View Indent Details
+					<h4 class="header-line">Upload PO Report
 					</h4>
 								<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -126,13 +126,13 @@
 					
   
 </div>
-<form role="form" action="saveIndentProjectDetails" method="post" enctype="multipart/form-data">
+<form role="form" action="CreatePoReportPurchaseDepartment" method="post" enctype="multipart/form-data">
 
 	<div class="row">
 		
 		<br><br>		
 	</div>
-		<div class="row">
+			<div class="row">
 				
 			<div class="col-md-3">
 					<div class="form-group">
@@ -146,11 +146,11 @@
 									 Integer roleId=(Integer) session.getAttribute("role");
 									 Integer instId=(Integer) session.getAttribute("instid");
 									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_project_department_application_details` WHERE role_id="+roleId+" and status='"+status+"'");
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tblpurchase_department_application_save_details` ");
 										while (contractorName.next()) {
 										ip++;
 									%>
-										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(1)%></option> 
+										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(2)%></option> 
 										<%
 											}
 										%>
@@ -267,21 +267,10 @@
 			  		</div>
 		 		</div>	
 		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Select Action</label>
-						<select class="form-control"  name="actionRemark" id="actionRemark" required="required"> 
-							<option value="0">Select</option>
-							<option value="1">Approved</option>
-						</select>
-						
-			  		</div>
-		 		</div>	
-		 		
 		 		<div class="col-md-3" id="rmk">
 					<div class="form-group">
 						<label>Upload Document</label>
-						<input class="form-control" type="file" name="document"  />
+						<input class="form-control" type="file" name="uploadPo" id="uploadPo"  />
 			  		</div>
 		 		</div>	
 		 		
@@ -293,10 +282,9 @@
 		 		</div>	
 		  	</div>
 		  			<button type="submit" class="btn btn-success">Save</button>
-		  			<br>
-		  			<br>
-		  			<hr>
-		  			
+		  		<br>
+		  		<br>
+		  		<hr>	
 		  	<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-success">
@@ -320,6 +308,7 @@
 											<th>Work Completion By</th>
 											<th>Previous Indent Ref</th>
 											<th>Any Other Remark</th>
+											<th>Document</th>
 										</tr>
 									</thead>
 									<tbody id="fetchValue">
@@ -333,7 +322,6 @@
 				</div>
 
 			</div>
-		  	
 		</form>
 		</div>
 	</div>
@@ -409,18 +397,18 @@
      
      $("#downloadPDF").click(function(){
     	 var srNo = $('#srNo').val();
-    	    window.location.href = 'GenerateIndentReportProject?srNo=' + srNo;
+    	    window.location.href = 'GenerateIndentReportPurchaseDepartment?srNo=' + srNo;
      });
     
      
-     $("#actionRemark").change(function(){
+     /* $("#actionRemark").change(function(){
     	 var value=$("#actionRemark").val();
-    	 if(value=="1"){
+    	 if(value=="2"){
     		$("#rmk").show(); 
     	 }else{
      		$("#rmk").hide(); 
     	 }
-     });
+     }); */
 	
 	$("#customerName").change(function(){
 		$.ajax({
@@ -471,18 +459,18 @@
 	
 	$("#srNo").change(function(){
 		$.ajax({
-			url : 'fetchIndentDetailsforProject',
+			url : 'fetchIndentDetailsPurchaseDepartment',
 			data : {
 				srNo:$("#srNo").val()
 			},
 			success : function(responseText) { 
-                $("#getSupplierValue").find("tr:not(:first)").remove();
-
+		         
 		         $("#instituteNameDetails").show();
 		         $("#indentName").show();
 		         $("#materialKnow").show();
 		         $("#estimated").show();
 		         $("#OtherRemark").show();
+		         $("#rmk").show();
 		         
 				var dataTablesObj = $.parseJSON(responseText);
 				$("#instituteName").val(dataTablesObj[0].instituteName);
@@ -512,13 +500,17 @@
 				$("#previousRef").prop('readonly',true);
 				$("#remark").prop('readonly',true);
 				$("#reasonWork").prop('readonly',true);
+				var srrNo=$("#srNo").val();
 				
 				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td></tr>")
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfPurchaseDeprtment?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
 					}
+				
 				}	
 		});
 	});
+	
+	
 	
 	function fetchContractorBasicDetails(){
 		$.ajax({

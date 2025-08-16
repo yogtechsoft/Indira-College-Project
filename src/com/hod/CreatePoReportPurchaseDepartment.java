@@ -2,28 +2,25 @@ package com.hod;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.sql.ResultSet;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.connection.DatabaseConnection;
 
-@WebServlet("/saveIndentProjectDetails")
-public class saveIndentProjectDetails extends  HttpServlet {
+@WebServlet("/CreatePoReportPurchaseDepartment")
+public class CreatePoReportPurchaseDepartment extends  HttpServlet {
+	
 	private final String UPLOAD_DIRECTORY = "D://product/document/";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,7 +52,7 @@ public class saveIndentProjectDetails extends  HttpServlet {
 		String password="";
 		String finaName="";
 		String is_active="";
-		int role=4;
+		int role=3;
 		String Hod_status="";
 		String imageName="";
 		String productName="";
@@ -114,10 +111,7 @@ public class saveIndentProjectDetails extends  HttpServlet {
 						FileItem otherRemark = (FileItem) multiparts.get(14);
 						remark = otherRemark.getString();
 						
-						FileItem actionRMk = (FileItem) multiparts.get(15);
-						actionRemark = actionRMk.getString();
-						
-						FileItem datee = (FileItem) multiparts.get(17);
+						FileItem datee = (FileItem) multiparts.get(16);
 						hodApprovedDate = datee.getString();
 					}
 				}
@@ -137,26 +131,26 @@ public class saveIndentProjectDetails extends  HttpServlet {
 				ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * from mst_institute_name where institue_name ='"+InstituteName+"'");
 					while(captchResultSet.next()) {
 						asad=captchResultSet.getInt(1);
-					}	
+					}		
 					
-					String status="Waiting For Approval";
+					String status="report uploaded";
 					String app="";
 					if(actionRemark.equals("1")) {
 						app="Approved";
 					}
 			
 			int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-					"insert into `tbl_save_project_dept_application`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
+					"insert into `tbl_create_po_report`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
 					+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"')");
 			if (addCustomer > 0) {
 				
 				String message="Data Added successfully.";
 				hs.setAttribute("message", message);
-				response.sendRedirect("IndentDetailsProject.jsp");
+				response.sendRedirect("createPOReport.jsp");
 			} else {
 				String message="fail";
 				hs.setAttribute("message", message);
-				response.sendRedirect("IndentDetailsProject.jsp");
+				response.sendRedirect("createPOReport.jsp");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

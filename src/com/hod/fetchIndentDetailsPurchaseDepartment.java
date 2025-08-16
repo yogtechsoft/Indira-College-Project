@@ -1,4 +1,4 @@
-package com.fetchData;
+package com.hod;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,11 +17,10 @@ import com.connection.DatabaseConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.model.IndentReportDetails;
-import com.model.SupplierMaterialDetails;
 
-@WebServlet("/fetchIndentDetailsforHOD")
-public class fetchIndentDetailsforHOD extends  HttpServlet {
-
+@WebServlet("/fetchIndentDetailsPurchaseDepartment")
+public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
@@ -29,7 +28,7 @@ public class fetchIndentDetailsforHOD extends  HttpServlet {
 			HttpSession hs=request.getSession();
 
 			List<IndentReportDetails> getDetails=new ArrayList<IndentReportDetails>();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_indent_save_details` where id="+srNO);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_purchase_department_application_received_details` where id="+srNO);
 			while (captchResultSet.next()) {
 				IndentReportDetails st=new IndentReportDetails();
 				st.setInstituteName(captchResultSet.getString("institute_name"));
@@ -49,6 +48,7 @@ public class fetchIndentDetailsforHOD extends  HttpServlet {
 				st.setHodRemark(captchResultSet.getString("hod_status_remark"));
 				st.setHodAppreovedDate(captchResultSet.getString("hod_approved_date"));
 				hs.setAttribute("rmkStatus", captchResultSet.getString("hod_status_remark"));
+				st.setFileName(captchResultSet.getString("filedata"));
 				getDetails.add(st);
 				
 			}
@@ -71,4 +71,5 @@ public class fetchIndentDetailsforHOD extends  HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 }
