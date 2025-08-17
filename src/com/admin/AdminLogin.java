@@ -47,6 +47,7 @@ public class AdminLogin extends HttpServlet {
 			int role=0;
 			String isb="";
 			int instid=0;
+			int instituteCorporateId=0;
 			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("select * from tblcaptcha");
 			if (captchResultSet.next()) {
 				captchaDB = captchResultSet.getString(2);
@@ -65,14 +66,18 @@ public class AdminLogin extends HttpServlet {
 				if(roleId.equals("1") ) {
 					if (email.equals(userName) && pass.equals(password)) {
 						hs.setAttribute("uname",displayName );
-						ResultSet dd = st.executeQuery("SELECT id,insitiute_name FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						ResultSet dd = st.executeQuery("SELECT id,insitiute_name,institute_id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
 						 HttpSession session = request.getSession();
-						while(dd.next()) {
+						int roleIdmAster=0;
+						 while(dd.next()) {
 							id =dd.getInt("id");
+							instituteCorporateId=dd.getInt("institute_id");
+							roleIdmAster=dd.getInt("role_id");
 						}
 						 session.setAttribute("userId", id);
-						 name.setAttribute("roleId",roleId );
-						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+						 name.setAttribute("roleId",roleIdmAster );
+						 name.setAttribute("institute",instituteCorporateId );
+						 response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
 						hs.setAttribute("credential", message);

@@ -141,16 +141,16 @@
 					<div class="form-group">
 						<label>Select Sr.No</label> 
 							<select class="form-control" id="srNo" name="srNo">
-								<option>Select</option>
+								<option value='0'>Select</option>
 									<%
 										int ip = 0;
 									 HttpSession asad = request.getSession();
 									 Integer userId = (Integer) session.getAttribute("userId");	
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_indent_save_details` WHERE user_id="+userId);
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_indent_save_details` WHERE user_id="+userId);
 										while (contractorName.next()) {
 										ip++;
 									%>
-										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(1)%></option> 
+										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(2)%></option> 
 										<%
 											}
 										%>
@@ -161,7 +161,7 @@
 				</div>
 				
 				
-				<div class="col-md-3" style="margin-top: 31px;">
+				<div class="col-md-3" style="margin-top: 31px;" id="downlaodBtn">
 					<div class="form-group">
 							<button type="button" id="downloadPDF" name="downloadPDF" class="btn btn-success">download Indent Report</button>								 
 					</div>
@@ -270,7 +270,7 @@
 		 		
 		 		
 		  	</div>
-		  			<button type="submit" class="btn btn-success">Save</button>
+		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
 		  	<input type="hidden" id="labelValue" name="labelValue" />
 		</form>
 		
@@ -387,6 +387,9 @@
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
          document.getElementById("remarkLabel").style.display = "none"; 
+         document.getElementById("downlaodBtn").style.display = "none"; 
+         document.getElementById("btnSave").style.display = "none"; 
+
 
      };
      
@@ -397,6 +400,7 @@
     
      
 	$("#srNo").change(function(){
+		
 		$.ajax({
 			url : 'fetchIndentDetailsforHOD',
 			data : {
@@ -404,11 +408,26 @@
 			},
 			success : function(responseText) { 
 				 $("#getSupplierValue").find("tr:not(:first)").remove();     
-		         $("#instituteNameDetails").show();
-		         $("#indentName").show();
-		         $("#materialKnow").show();
-		         $("#estimated").show();
-		         $("#OtherRemark").show();
+		        
+		         var xasd=$("#srNo").val();
+		         if(xasd == '0'){
+		        	 $("#instituteNameDetails").hide();
+			         $("#indentName").hide();
+			         $("#materialKnow").hide();
+			         $("#estimated").hide();
+			         $("#OtherRemark").hide();
+			         $("#downlaodBtn").hide();
+			         $("#btnSave").hide();
+		         }else {
+		        	 $("#instituteNameDetails").show();
+			         $("#indentName").show();
+			         $("#materialKnow").show();
+			         $("#estimated").show();
+			         $("#OtherRemark").show();
+			         $("#downlaodBtn").show();
+			         $("#btnSave").show();
+		         }
+		         
 					var dataTablesObj = $.parseJSON(responseText);
 					
 				$("#instituteName").val(dataTablesObj[0].instituteName);

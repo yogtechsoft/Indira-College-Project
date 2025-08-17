@@ -126,7 +126,7 @@
 					
   
 </div>
-<form role="form" action=SaveIndentDetails method="post">
+<form role="form" action=SaveIndentDetails method="POST">
 
 	<div class="row">
 		
@@ -137,8 +137,8 @@
 			<div class="col-md-3">
 					<div class="form-group">
 						<label>Select Institute Name</label> 
-							<select class="form-control" id="InstituteName" name="InstituteName">
-								<option>Select</option>
+							<select class="form-control" id="InstituteName" name="InstituteName" required>
+								<option value="">Select</option>
 									<%
 										int ip = 0;
 									HttpSession asad = request.getSession();
@@ -178,28 +178,28 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Work Description</label>
- 						<textarea id="discription" name="discription" rows="5" cols="40" style="width: 307px;height: 60px;"></textarea><br><br>					
+ 						<textarea id="discription" name="discription" rows="5" cols="40" style="width: 307px;height: 60px;" required="required"></textarea><br><br>					
  					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Material Required (IF KNOW)</label>
-						<input class="form-control" type="text" name="materialRequired" id="materialRequired" placeholder="Enter Material Required" />
+						<input class="form-control" type="text" name="materialRequired" id="materialRequired" placeholder="Enter Material Required" required="required" />
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Quantity</label>
-						<input class="form-control" type="text" name="quantity" id="quantity" placeholder="Enter Quantity" />
+						<input class="form-control" type="text" name="quantity" id="quantity" placeholder="Enter Quantity" required="required" />
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Location And Reason For Work</label>
-						<input class="form-control" type="text" name="reasonWork" id="reasonWork" placeholder="Enter Location And Reason For Work" />
+						<input class="form-control" type="text" name="reasonWork" id="reasonWork" placeholder="Enter Location And Reason For Work" required="required" />
 					</div>
 				</div>
 				
@@ -210,28 +210,28 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Specific Agency</label>
-						<input class="form-control" type="text" name="specificAgency" id="specificAgency" placeholder="Enter Specific Agency" />
+						<input class="form-control" type="text" name="specificAgency" id="specificAgency" placeholder="Enter Specific Agency" required="required"/>
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Estimated Indent Value .(RS)</label>
-						<input class="form-control" type="text" name="indentValue" id="indentValue" placeholder="Enter Indent Value" />
+						<input class="form-control" type="text" name="indentValue" id="indentValue" placeholder="Enter Indent Value" required="required" />
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Delivery Required By (Date)</label>
-						<input class="form-control" type="text" name="deliveryRequired" id="deliveryRequired" placeholder="Enter Delivery Details" />
+						<input class="form-control" type="text" name="deliveryRequired" id="deliveryRequired" placeholder="Enter Delivery Details" required="required" />
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Work Completion By (Date)</label>
-						<input class="form-control" type="text" name="workCompletion" id="workCompletion" placeholder="Enter Work Completion Details"/>
+						<input class="form-control" type="text" name="workCompletion" id="workCompletion" placeholder="Enter Work Completion Details" required="required" />
 					</div>
 				</div>
 				
@@ -240,13 +240,13 @@
 			<div class="col-md-3">
 				<div class="form-group">
 					<label>Previous Indent Ref (IF ANY)</label>
-					<input class="form-control" type="text" name="previousRef" id="previousRef" placeholder="Enter previous Ref" />
+					<input class="form-control" type="text" name="previousRef" id="previousRef" placeholder="Enter previous Ref" required="required" />
 				</div>
 			</div>
 			<div class="col-md-3">
 				<div class="form-group">
 					<label>Any Other Remark</label>
-					<input class="form-control" type="text" name="remark" id="remark" placeholder="Enter Remark" />
+					<input class="form-control" type="text" name="remark" id="remark" placeholder="Enter Remark"  required="required" />
 			  </div>
 		 </div>	
 		</div>	

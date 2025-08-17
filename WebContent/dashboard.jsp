@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="com.connection.*"%>
 <%@ page import="java.sql.*"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -56,29 +58,31 @@
 		<div class="container">
 			<div class="row pad-botm">
 				<div class="col-md-12">
-					<h4 class="header-line">CONTRACTOR DASHBOARD</h4>
+					<h4 class="header-line"> DASHBOARD</h4>
 
 				</div>
 
 			</div>
 
 			<div class="row">
-
+			
 				<div class="col-md-3 col-sm-3 col-xs-6">
 					<div class="alert alert-info back-widget-set text-center">
 						<i class="fa fa-history fa-5x"></i>
-						<%-- <%
-							ResultSet totalProduct=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_customer_register");
+						 <%
+						 Integer userId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_indent_save_details where user_id="+userId);
 							totalProduct.next();
 							int allProducts=totalProduct.getInt(1);
-						%> --%>
+						%> 
 						<h3>
-							<%-- <%=allProducts %> --%>
-							0
+							 <%=allProducts %> 
 						</h3>
-						Regsitered Construction Sites
+						Total No Application
 					</div>
 				</div>
+		
 				<div class="col-md-3 col-sm-3 col-xs-6">
 					<div class="alert alert-success back-widget-set text-center">
 						<i class="fa fa-users fa-5x"></i>

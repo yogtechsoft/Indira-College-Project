@@ -12,21 +12,27 @@
 					<ul id="menu-top" class="nav navbar-nav navbar-right">
 						<li><a href="dashboard.jsp">Home</a></li>
 						<c:if test = "${roleId !=3 && roleId !=2 && roleId !=4 && roleId !=5 && roleId !=6}">	
-						<li><a href="CreateIndent.jsp">Create Indent</a></li>
-						<li><a href="ViewIndentReport.jsp">View Intent Details</a></li>
+							<li><a href="CreateIndent.jsp">Create Indent</a></li>
+							<li><a href="ViewIndentReport.jsp">View Intent Details</a></li>
+							<li><a href="WorkCompletionReportDetailsAdmin.jsp">Work Completion Report</a></li>
 						</c:if>
 						<c:if test = "${ roleId ==2}">
 						<li><a href="ViewIndentForHOD.jsp">View Indent</a></li>
+						<li><a href="viewWorkCompletionReportHOD.jsp">View Work Completion Report</a></li>
+						<li><a href="viewAllApplicationDetails.jsp">View All Application Details</a></li>
 						</c:if>
 						<c:if test = "${ roleId ==4}">
 						<li><a href="ViewIndentReportForProjectDirector.jsp">View Indent Details</a></li>
+						<li><a href="ViewAllApplicationDirector.jsp">View All Application Details</a></li>
 						</c:if>
 						<c:if test = "${ roleId ==5}">
 						<li><a href="ViewIndentReportForProjectExcutive.jsp">View Indent Details</a></li>
+						<li><a href="ViewAllApplicationDirectorExecutive.jsp">View All Application Details</a></li>
 						</c:if>
 						<c:if test = "${ roleId ==6}">
 						<li><a href="ViewIndentReportorPurchaseDepartment.jsp">View Indent Details</a></li>
 						<li><a href="createPOReport.jsp">Create PO Report</a></li>
+						<li><a href="viewAllApplicationPurchaseDepartment.jsp">View All Application Details</a></li>
 						
 						</c:if>
 					<c:if test = "${roleId !=1 && roleId !=2 && roleId !=4 && roleId !=5 && roleId !=6}">	
@@ -99,6 +105,10 @@
 									href="IndentDetailsProject.jsp">View Indent Report</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="viewPoReportForProjectDepartment.jsp">View PO Report</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="WorkCompletionReport.jsp">Upload Work Completion Report</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="ViewAllApplicationProjectDepartment.jsp">View All Application Details</a></li>	
 							</c:if>		
 							</ul>
 							</li>		

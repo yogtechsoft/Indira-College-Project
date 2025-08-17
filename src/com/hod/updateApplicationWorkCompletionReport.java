@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 import com.connection.DatabaseConnection;
 
-@WebServlet("/UpdateApplicationStatusDirector")
-public class UpdateApplicationStatusDirector extends HttpServlet {
+@WebServlet("/updateApplicationWorkCompletionReport")
+public class updateApplicationWorkCompletionReport extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -41,7 +41,7 @@ public class UpdateApplicationStatusDirector extends HttpServlet {
 		String previousRef = request.getParameter("previousRef");
 		String remark = request.getParameter("remark");
 		String status="Approved";
-		int role=4;
+		int role=2;
 		String waiting="Waiting for Approval";
 		String fileName="";
 		Blob fileData = null;
@@ -58,7 +58,7 @@ public class UpdateApplicationStatusDirector extends HttpServlet {
 							instituteId=captchResultSet.getInt(1);
 						}	
 				
-						ResultSet data = DatabaseConnection.getResultFromSqlQuery("SELECT name,file_data from tbl_save_project_dept_application where id="+srNO);
+						ResultSet data = DatabaseConnection.getResultFromSqlQuery("SELECT filename,file_data from tbl_work_completion_report_project_department where id="+srNO);
 						while(data.next()) {
 							fileName=data.getString(1);
 							fileData=data.getBlob(2);
@@ -66,24 +66,17 @@ public class UpdateApplicationStatusDirector extends HttpServlet {
 						
 						
 				String asas="Approved";
-				int i = statement.executeUpdate("UPDATE tbl_save_project_dept_application set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
+					
+					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
+							"insert into `tbl_work_completion_approved_admin_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,filename,file_data)"
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+instituteId+",'"+asas+"','"+dateDetails+"','"+fileName+"','"+fileData+"')");
+					if(addCustomer>0) {
+					}
+					
 					String message="Application Approved successfully";
 					hs.setAttribute("message", message);
 					
-					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-							"insert into `tbl_project_director_executive_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
-					if(addCustomer>0) {
-						
-					}
-					
-					int value = DatabaseConnection.insertUpdateFromSqlQuery(
-							"insert into `tbl_project_director_excutor_application_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+waiting+"',"+userId+","+nextlevelapplicationroleId+",'"+""+"','"+""+"','"+fileName+"','"+fileData+"')");
-					if(value>0) {
-						
-					}
-					response.sendRedirect("ViewIndentReportForProjectDirector.jsp");
+					response.sendRedirect("WorkCompletionReportDetailsAdmin.jsp");
 				
 			}
 		}catch(Exception e){
@@ -93,3 +86,4 @@ public class UpdateApplicationStatusDirector extends HttpServlet {
 	}
 
 }
+

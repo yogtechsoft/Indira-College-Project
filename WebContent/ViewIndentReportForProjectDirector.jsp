@@ -138,7 +138,7 @@
 					<div class="form-group">
 						<label>Select Sr.No</label> 
 							<select class="form-control" id="srNo" name="srNo">
-								<option>Select</option>
+								<option value="0">Select</option>
 									<%
 										int ip = 0;
 									 HttpSession asad = request.getSession();
@@ -146,11 +146,11 @@
 									 Integer roleId=(Integer) session.getAttribute("role");
 									 Integer instId=(Integer) session.getAttribute("instid");
 									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_save_project_dept_application` WHERE role_id="+roleId+" and status='"+status+"'");
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_save_project_dept_application` WHERE role_id="+roleId+" and status='"+status+"'");
 										while (contractorName.next()) {
 										ip++;
 									%>
-										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(1)%></option> 
+										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(2)%></option> 
 										<%
 											}
 										%>
@@ -160,7 +160,7 @@
 				  </div>
 				</div>
 				
-				<div class="col-md-3" style="margin-top: 31px;">
+				<div class="col-md-3" style="margin-top: 31px;" id="downalodPdfDirector">
 					<div class="form-group">
 							<button type="button" id="downloadPDF" name="downloadPDF" class="btn btn-success">download Indent Report</button>								 
 					</div>
@@ -292,7 +292,7 @@
 			  		</div>
 		 		</div>	
 		  	</div>
-		  			<button type="submit" class="btn btn-success">Save</button>
+		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
 		  		<br>
 		  		<br>
 		  		<hr>	
@@ -403,6 +403,8 @@
          document.getElementById("materialKnow").style.display = "none"; 
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
+         document.getElementById("downalodPdfDirector").style.display = "none"; 
+         document.getElementById("btnSave").style.display = "none"; 
 
      };
      
@@ -476,11 +478,24 @@
 			},
 			success : function(responseText) { 
 		         
-		         $("#instituteNameDetails").show();
-		         $("#indentName").show();
-		         $("#materialKnow").show();
-		         $("#estimated").show();
-		         $("#OtherRemark").show();
+				 var xasd=$("#srNo").val();
+		         if(xasd == '0'){
+		        	 $("#instituteNameDetails").hide();
+			         $("#indentName").hide();
+			         $("#materialKnow").hide();
+			         $("#estimated").hide();
+			         $("#OtherRemark").hide();
+			         $("#downloadPdfHod").hide();
+			         $("#btnSave").hide();
+		         }else {
+		        	 $("#instituteNameDetails").show();
+			         $("#indentName").show();
+			         $("#materialKnow").show();
+			         $("#estimated").show();
+			         $("#OtherRemark").show();
+			         $("#downloadPdfHod").show();
+			         $("#btnSave").show();
+		         }
 		         
 				var dataTablesObj = $.parseJSON(responseText);
 				$("#instituteName").val(dataTablesObj[0].instituteName);

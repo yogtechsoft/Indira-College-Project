@@ -69,7 +69,7 @@
 				}
 			%>
 				<div class="col-md-12">
-					<h4 class="header-line">View Indent Details
+					<h4 class="header-line">Upload Work Completion Report
 					</h4>
 								<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -126,7 +126,7 @@
 					
   
 </div>
-<form role="form" action="UpdateApplicationStatusPurchaseDepartment" method="post">
+<form role="form" action="SaveWorkCompletionReport" method="post" enctype="multipart/form-data">
 
 	<div class="row">
 		
@@ -138,15 +138,14 @@
 					<div class="form-group">
 						<label>Select Sr.No</label> 
 							<select class="form-control" id="srNo" name="srNo">
-								<option value="0">Select</option>
+								<option>Select</option>
 									<%
 										int ip = 0;
 									 HttpSession asad = request.getSession();
 									
 									 Integer roleId=(Integer) session.getAttribute("role");
 									 Integer instId=(Integer) session.getAttribute("instid");
-									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_purchase_department_application_received_details` WHERE role_id="+roleId+" and status='"+status+"'");
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_project_department_application_details` WHERE role_id="+roleId+"");
 										while (contractorName.next()) {
 										ip++;
 									%>
@@ -160,11 +159,7 @@
 				  </div>
 				</div>
 				
-				<div class="col-md-3" style="margin-top: 31px;" id="downlaodPdfPurchase">
-					<div class="form-group">
-							<button type="button" id="downloadPDF" name="downloadPDF" class="btn btn-success">download Indent Report</button>								 
-					</div>
-				</div>	
+				
 			</div>	
 			
 			<div class="row" id="instituteNameDetails">
@@ -267,16 +262,7 @@
 			  		</div>
 		 		</div>	
 		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Select Action</label>
-						<select class="form-control"  name="actionRemark" id="actionRemark" required="required"> 
-							<option value="">Select</option>
-							<option value="1">Approved</option>
-						</select>
-						
-			  		</div>
-		 		</div>	
+		 		
 		 		
 		 		<div class="col-md-3" id="rmk">
 					<div class="form-group">
@@ -285,54 +271,27 @@
 			  		</div>
 		 		</div>	
 		 		
+		 		<div class="col-md-3" id="rmk">
+					<div class="form-group">
+						<label>Upload Work Completion Report</label>
+						<input class="form-control" type="file" name="document"  />
+			  		</div>
+		 		</div>
+		 		
 		 		<div class="col-md-3">
 					<div class="form-group">
 						<label>Date</label>
 						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  />
 			  		</div>
-		 		</div>	
+		 		</div>
+		 			
 		  	</div>
-		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
+		  			 		<button type="submit" class="btn btn-success">Save</button>
+		  	
 		  		<br>
 		  		<br>
 		  		<hr>	
-		  	<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="panel panel-success">
-						<div class="panel-heading">Indent Report Summary</div>
-						<div class="panel-body">
-							<div class="table-responsive">
-								<table class="table table-striped table-bordered table-hover" id="getSupplierValue">
-									<thead>
-										<tr>
-											<th>Institute Name</th>
-											<th>Indenter Name</th>
-											<th>Department</th>
-											<th>Date</th>
-											<th>Work Description</th>
-											<th>Material Required (IF KNOW)</th>
-											<th>Quantity</th>
-											<th>Location And Reason For Work</th>
-											<th>Specific Agency</th>
-											<th>Estimated Indent Value</th>
-											<th>Delivery Required By</th>
-											<th>Work Completion By</th>
-											<th>Previous Indent Ref</th>
-											<th>Any Other Remark</th>
-											<th>Document</th>
-										</tr>
-									</thead>
-									<tbody id="fetchValue">
-										
-									</tbody>
-									
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
+		  	
 		</form>
 		</div>
 	</div>
@@ -403,8 +362,6 @@
          document.getElementById("materialKnow").style.display = "none"; 
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
-         document.getElementById("downlaodPdfPurchase").style.display = "none"; 
-         document.getElementById("btnSave").style.display = "none"; 
 
      };
      
@@ -472,32 +429,17 @@
 	
 	$("#srNo").change(function(){
 		$.ajax({
-			url : 'fetchIndentDetailsPurchaseDepartment',
+			url : 'fetchPoReportPurchaseDepartment',
 			data : {
 				srNo:$("#srNo").val()
 			},
 			success : function(responseText) { 
 		         
-				var xasd=$("#srNo").val();
-		         if(xasd == '0'){
-		        	 $("#instituteNameDetails").hide();
-			         $("#indentName").hide();
-			         $("#materialKnow").hide();
-			         $("#estimated").hide();
-			         $("#OtherRemark").hide();
-			         $("#DownloadPdfProjectDirector").hide();
-			         $("#btnSave").hide();
-			         $("#getSupplierValue").find(
-						"tr:not(:first)").remove();
-		         }else {
-		        	 $("#instituteNameDetails").show();
-			         $("#indentName").show();
-			         $("#materialKnow").show();
-			         $("#estimated").show();
-			         $("#OtherRemark").show();
-			         $("#DownloadPdfProjectDirector").show();
-			         $("#btnSave").show();
-		         }
+		         $("#instituteNameDetails").show();
+		         $("#indentName").show();
+		         $("#materialKnow").show();
+		         $("#estimated").show();
+		         $("#OtherRemark").show();
 		         
 				var dataTablesObj = $.parseJSON(responseText);
 				$("#instituteName").val(dataTablesObj[0].instituteName);
@@ -530,7 +472,7 @@
 				var srrNo=$("#srNo").val();
 				
 				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfPurchaseDeprtment?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfPOReportProject?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
 					}
 				
 				}	

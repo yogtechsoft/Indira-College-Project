@@ -147,11 +147,11 @@
 									 String institute=(String) session.getAttribute("instituteName");
 									 Integer instId=(Integer) session.getAttribute("instid");
 									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id FROM `tbl_indent_save_details` WHERE role_id="+roleId+" and institute_name='"+institute+"'and institute_id="+instId+" and status='"+status+"'");
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_indent_save_details` WHERE role_id="+roleId+" and institute_name='"+institute+"'and institute_id="+instId+" and status='"+status+"'");
 										while (contractorName.next()) {
 										ip++;
 									%>
-										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(1)%></option> 
+										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(2)%></option> 
 										<%
 											}
 										%>
@@ -161,7 +161,7 @@
 				  </div>
 				</div>
 				
-				<div class="col-md-3" style="margin-top: 31px;">
+				<div class="col-md-3" style="margin-top: 31px;" id="downloadPdfHod">
 					<div class="form-group">
 							<button type="button" id="downloadPDF" name="downloadPDF" class="btn btn-success">download Indent Report</button>								 
 					</div>
@@ -272,7 +272,7 @@
 					<div class="form-group">
 						<label>Select Action</label>
 						<select class="form-control"  name="actionRemark" id="actionRemark" required="required"> 
-							<option value="0">Select</option>
+							<option value="">Select</option>
 							<option value="1">Approved</option>
 							<option value="2">Rejected</option>
 						</select>
@@ -294,7 +294,11 @@
 			  		</div>
 		 		</div>	
 		  	</div>
-		  			<button type="submit" class="btn btn-success">Save</button>
+		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
+		  			
+		  	<br>
+		  	<br>
+		  			
 		  	
 		</form>
 		</div>
@@ -366,6 +370,8 @@
          document.getElementById("materialKnow").style.display = "none"; 
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
+         document.getElementById("downloadPdfHod").style.display = "none"; 
+         document.getElementById("btnSave").style.display = "none"; 
 
      };
      
@@ -379,8 +385,11 @@
     	 var value=$("#actionRemark").val();
     	 if(value=="2"){
     		$("#rmk").show(); 
+    		$("#statusRemark").prop('required',true);
     	 }else{
      		$("#rmk").hide(); 
+    		$("#statusRemark").prop('required',false);
+
     	 }
      });
 	
@@ -438,13 +447,28 @@
 				srNo:$("#srNo").val()
 			},
 			success : function(responseText) { 
+				 $("#getSupplierValue").find("tr:not(:first)").remove();     
+
+				 var xasd=$("#srNo").val();
+		         if(xasd == '0'){
+		        	 $("#instituteNameDetails").hide();
+			         $("#indentName").hide();
+			         $("#materialKnow").hide();
+			         $("#estimated").hide();
+			         $("#OtherRemark").hide();
+			         $("#downloadPdfHod").hide();
+			         $("#btnSave").hide();
+		         }else {
+		        	 $("#instituteNameDetails").show();
+			         $("#indentName").show();
+			         $("#materialKnow").show();
+			         $("#estimated").show();
+			         $("#OtherRemark").show();
+			         $("#downloadPdfHod").show();
+			         $("#btnSave").show();
+		         }
 		         
-		         $("#instituteNameDetails").show();
-		         $("#indentName").show();
-		         $("#materialKnow").show();
-		         $("#estimated").show();
-		         $("#OtherRemark").show();
-		         
+		        
 				var dataTablesObj = $.parseJSON(responseText);
 				$("#instituteName").val(dataTablesObj[0].instituteName);
 				$("#indenterName").val(dataTablesObj[0].indenterName);

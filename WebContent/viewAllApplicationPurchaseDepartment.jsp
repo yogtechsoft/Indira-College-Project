@@ -69,9 +69,11 @@
 				}
 			%>
 				<div class="col-md-12">
-					<h4 class="header-line">Upload PO Report
+					<h4 class="header-line">View Indent Details
 					</h4>
-								<div class="modal fade" id="myModal" role="dialog">
+					
+						
+	<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -126,162 +128,13 @@
 					
   
 </div>
-<form role="form" action="CreatePoReportPurchaseDepartment" method="post" enctype="multipart/form-data">
 
 	<div class="row">
 		
 		<br><br>		
 	</div>
-			<div class="row">
-				
-			<div class="col-md-3">
-					<div class="form-group">
-						<label>Select Sr.No</label> 
-							<select class="form-control" id="srNo" name="srNo" required="required">
-								<option value="">Select</option>
-									<%
-										int ip = 0;
-									 HttpSession asad = request.getSession();
-									
-									 Integer roleId=(Integer) session.getAttribute("role");
-									 Integer instId=(Integer) session.getAttribute("instid");
-									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_purchase_department_application_received_details` where role_id="+roleId );
-										while (contractorName.next()) {
-										ip++;
-									%>
-										<option value="<%=contractorName.getString(1)%>"><%=contractorName.getString(2)%></option> 
-										<%
-											}
-										%>
-							</select>
-							
-							
-				  </div>
-				</div>
-				
-				
-			</div>	
-			
-			<div class="row" id="instituteNameDetails">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Institute Name</label> 
-						 <input class="form-control" type="text" name="instituteName" id="instituteName"  required="required" readonly="readonly" />
-					</div>
-				</div>
-			</div>
-			
-			<div class="row" id="indentName">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Indenter Name</label> 
-						 <input class="form-control" type="text" name="indenterName" id="indenterName"  required="required" readonly="readonly" />
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Department</label> 
-						 <input class="form-control" type="text" name="department" id="department"  required="required" />
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label> 
-						 <input class="form-control" type="text" name="date" id="date"  required="required" />
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Work Description</label>
-						<input class="form-control" type="text" name="workDescription" id="workDescription"  />
-					</div>
-				</div>
-			</div>
-			<div class="row" id="materialKnow">
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Material Required (IF KNOW)</label>
-						<input class="form-control" type="text" name="materialRequired" id="materialRequired"  />
-					</div>
-				</div>
-				
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Quantity</label>
-						<input class="form-control" type="text" name="quantity" id="quantity"  />
-					</div>
-				</div>
-				
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Location And Reason For Work</label>
-						<input class="form-control" type="text" name="reasonWork" id="reasonWork"  />
-					</div>
-				</div>
-				
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Specific Agency</label>
-						<input class="form-control" type="text" name="specificAgency" id="specificAgency"  />
-					</div>
-				</div>
-		  </div>	
-		  	<div class="row" id="estimated">
-		  		<div class="col-md-3">
-					<div class="form-group">
-						<label>Estimated Indent Value .(RS)</label>
-						<input class="form-control" type="text" name="indentValue" id="indentValue"  />
-					</div>
-				</div>
-				
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Delivery Required By (Date)</label>
-						<input class="form-control" type="text" name="deliveryRequired" id="deliveryRequired"  />
-					</div>
-				</div>
-				
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Work Completion By (Date)</label>
-						<input class="form-control" type="text" name="workCompletion" id="workCompletion"/>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-					<label>Previous Indent Ref (IF ANY)</label>
-					<input class="form-control" type="text" name="previousRef" id="previousRef" />
-				</div>
-			</div>
-		  	</div>
-		  	<div class="row" id="OtherRemark">
-		  		<div class="col-md-3">
-					<div class="form-group">
-						<label>Any Other Remark</label>
-						<input class="form-control" type="text" name="remark" id="remark"  />
-			  		</div>
-		 		</div>	
-		 		
-		 		<div class="col-md-3" id="rmk">
-					<div class="form-group">
-						<label>Upload Document</label>
-						<input class="form-control" type="file" name="uploadPo" id="uploadPo" required="required" />
-			  		</div>
-		 		</div>	
-		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label>
-						<input class="form-control" type="date" name="dateDetails" id="dateDetails" required="required" />
-			  		</div>
-		 		</div>	
-		  	</div>
-		  			<button type="submit" class="btn btn-success">Save</button>
-		  		<br>
-		  		<br>
-		  		<hr>	
-		  	<div class="row">
+		
+		<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-success">
 						<div class="panel-heading">Indent Report Summary</div>
@@ -304,12 +157,38 @@
 											<th>Work Completion By</th>
 											<th>Previous Indent Ref</th>
 											<th>Any Other Remark</th>
-											<th>Document</th>
+											<th>Hod Remark</th>
+											<th>Hod Approve / Rejected Date</th>
+											
 										</tr>
 									</thead>
-									<tbody id="fetchValue">
-										
+									<%
+										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_purchase_department_application_received_details");
+									while (rs.next()) {
+									%>
+									<tbody>
+										<tr>
+											<td><%=rs.getString("institute_name")%></td>
+											<td><%=rs.getString("indenter_name")%></td>
+											<td><%=rs.getString("department")%></td>
+											<td><%=rs.getString("date")%></td>
+											<td><%=rs.getString("work_descrption")%></td>
+											<td><%=rs.getString("material_required")%></td>
+											<td><%=rs.getString("qunatitiy")%></td>
+											<td><%=rs.getString("location_reason_work")%></td>
+											<td><%=rs.getString("specific_agency")%></td>
+											<td><%=rs.getString("estimated_indent_value")%></td>
+											<td><%=rs.getString("delivery_requred")%></td>
+											<td><%=rs.getString("workCompletion")%></td>
+											<td><%=rs.getString("previous_indent")%></td>
+											<td><%=rs.getString("other_remark")%></td>
+											<td><%=rs.getString("hod_status_remark")%></td>
+											<td><%=rs.getString("hod_approved_date")%></td>
+										</tr>
 									</tbody>
+									<%
+										}
+									%>
 									
 								</table>
 							</div>
@@ -318,8 +197,7 @@
 				</div>
 
 			</div>
-		</form>
-		</div>
+	
 	</div>
 
 </div>
@@ -382,29 +260,81 @@
 	<script>
 	
 	 window.onload = function() {
-         document.getElementById("rmk").style.display = "none"; 
          document.getElementById("instituteNameDetails").style.display = "none"; 
          document.getElementById("indentName").style.display = "none"; 
          document.getElementById("materialKnow").style.display = "none"; 
          document.getElementById("estimated").style.display = "none"; 
          document.getElementById("OtherRemark").style.display = "none"; 
+         document.getElementById("remarkLabel").style.display = "none"; 
+         document.getElementById("downlaodBtn").style.display = "none"; 
+         document.getElementById("btnSave").style.display = "none"; 
+
 
      };
      
      $("#downloadPDF").click(function(){
     	 var srNo = $('#srNo').val();
-    	    window.location.href = 'GenerateIndentReportPurchaseDepartment?srNo=' + srNo;
+    	    window.location.href = 'GenerateInvoiceDetails?srNo=' + srNo;
      });
     
      
-     /* $("#actionRemark").change(function(){
-    	 var value=$("#actionRemark").val();
-    	 if(value=="2"){
-    		$("#rmk").show(); 
-    	 }else{
-     		$("#rmk").hide(); 
-    	 }
-     }); */
+	$("#srNo").change(function(){
+		
+		$.ajax({
+			url : 'fetchIndentDetailsforHOD',
+			data : {
+				srNo:$("#srNo").val()
+			},
+			success : function(responseText) { 
+				 $("#getSupplierValue").find("tr:not(:first)").remove();     
+		        
+		         var xasd=$("#srNo").val();
+		         if(xasd == '0'){
+		        	 $("#instituteNameDetails").hide();
+			         $("#indentName").hide();
+			         $("#materialKnow").hide();
+			         $("#estimated").hide();
+			         $("#OtherRemark").hide();
+			         $("#downlaodBtn").hide();
+			         $("#btnSave").hide();
+		         }else {
+		        	 $("#instituteNameDetails").show();
+			         $("#indentName").show();
+			         $("#materialKnow").show();
+			         $("#estimated").show();
+			         $("#OtherRemark").show();
+			         $("#downlaodBtn").show();
+			         $("#btnSave").show();
+		         }
+		         
+					var dataTablesObj = $.parseJSON(responseText);
+					
+				$("#instituteName").val(dataTablesObj[0].instituteName);
+				$("#indenterName").val(dataTablesObj[0].indenterName);
+				$("#department").val(dataTablesObj[0].department);
+				$("#date").val(dataTablesObj[0].date);
+				$("#workDescription").val(dataTablesObj[0].workDescription);
+				$("#materialRequired").val(dataTablesObj[0].materialRequired);
+				$("#quantity").val(dataTablesObj[0].quantity);
+				$("#reasonWork").val(dataTablesObj[0].reasonWork);
+				$("#specificAgency").val(dataTablesObj[0].specificAgency);
+				$("#indentValue").val(dataTablesObj[0].indentValue);
+				$("#deliveryRequired").val(dataTablesObj[0].deliveryRequired);
+				$("#workCompletion").val(dataTablesObj[0].workCompletion);
+				$("#previousRef").val(dataTablesObj[0].previousRef);
+				$("#remark").val(dataTablesObj[0].remark);
+			
+				
+				
+				for(var i=0;i<=dataTablesObj.length;i++){
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td>"+dataTablesObj[i].hodRemark+"</td><td>"+dataTablesObj[i].hodAppreovedDate+"</td></tr>")
+					}
+				
+				}	
+			
+			
+		});
+	});
 	
 	$("#customerName").change(function(){
 		$.ajax({
@@ -452,61 +382,6 @@
 			}
 		});
 	});
-	
-	$("#srNo").change(function(){
-		$.ajax({
-			url : 'fetchIndentDetailsPurchaseDepartment',
-			data : {
-				srNo:$("#srNo").val()
-			},
-			success : function(responseText) { 
-		         
-		         $("#instituteNameDetails").show();
-		         $("#indentName").show();
-		         $("#materialKnow").show();
-		         $("#estimated").show();
-		         $("#OtherRemark").show();
-		         $("#rmk").show();
-		         
-				var dataTablesObj = $.parseJSON(responseText);
-				$("#instituteName").val(dataTablesObj[0].instituteName);
-				$("#indenterName").val(dataTablesObj[0].indenterName);
-				$("#department").val(dataTablesObj[0].department);
-				$("#date").val(dataTablesObj[0].date);
-				$("#workDescription").val(dataTablesObj[0].workDescription);
-				$("#materialRequired").val(dataTablesObj[0].materialRequired);
-				$("#quantity").val(dataTablesObj[0].quantity);
-				$("#reasonWork").val(dataTablesObj[0].reasonWork);
-				$("#specificAgency").val(dataTablesObj[0].specificAgency);
-				$("#indentValue").val(dataTablesObj[0].indentValue);
-				$("#deliveryRequired").val(dataTablesObj[0].deliveryRequired);
-				$("#workCompletion").val(dataTablesObj[0].workCompletion);
-				$("#previousRef").val(dataTablesObj[0].previousRef);
-				$("#remark").val(dataTablesObj[0].remark);
-				
-				$("#department").prop('readonly',true);
-				$("#date").prop('readonly',true);
-				$("#workDescription").prop('readonly',true);
-				$("#materialRequired").prop('readonly',true);
-				$("#quantity").prop('readonly',true);
-				$("#specificAgency").prop('readonly',true);
-				$("#indentValue").prop('readonly',true);
-				$("#deliveryRequired").prop('readonly',true);
-				$("#workCompletion").prop('readonly',true);
-				$("#previousRef").prop('readonly',true);
-				$("#remark").prop('readonly',true);
-				$("#reasonWork").prop('readonly',true);
-				var srrNo=$("#srNo").val();
-				
-				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfPurchaseDeprtment?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
-					}
-				
-				}	
-		});
-	});
-	
-	
 	
 	function fetchContractorBasicDetails(){
 		$.ajax({
