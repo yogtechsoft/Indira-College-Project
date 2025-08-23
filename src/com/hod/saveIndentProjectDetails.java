@@ -25,7 +25,7 @@ import com.connection.DatabaseConnection;
 
 @WebServlet("/saveIndentProjectDetails")
 public class saveIndentProjectDetails extends  HttpServlet {
-	private final String UPLOAD_DIRECTORY = "D://product/document/";
+	private final String UPLOAD_DIRECTORY = "/home/jarandes/upload/";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

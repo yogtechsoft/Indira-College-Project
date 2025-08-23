@@ -43,8 +43,8 @@ public class DatabaseConnection {
 	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/indiracollege?useSSL=false", "root", "");  //for UAT
-			//connection = DriverManager.getConnection("jdbc:mysql://localhost/jarandes_indira_construction?useSSL=false", "jarandes_jarandes", "Abhishek@1993");     // for PROD
+			//connection = DriverManager.getConnection("jdbc:mysql://localhost/indiracollege?useSSL=false", "root", "");  //for UAT
+			connection = DriverManager.getConnection("jdbc:mysql://localhost/jarandes_college_erp?useSSL=false", "jarandes_abhishek", "Abhishek@1993");     // for PROD
 		} catch (Exception e) { 
 			e.printStackTrace();
 		}

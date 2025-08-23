@@ -149,7 +149,7 @@ chart.render();
 		
 		<div class="col-md-3">
 			<div class="form-group">
-				<label>Enter Work Details</label> 
+				<label>Enter Total Work Completed in Number</label> 
 				<input class="form-control" type="number" name="workDetails" id="workDetails">
 				
 			</div>

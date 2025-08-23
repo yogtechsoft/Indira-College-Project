@@ -95,6 +95,7 @@ public class AdminLogin extends HttpServlet {
 							isb=institute.getString("insitiute_name");
 							instid=institute.getInt("institute_id");
 						}
+						
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );

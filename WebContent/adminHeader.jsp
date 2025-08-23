@@ -77,7 +77,7 @@
 								
 							</ul></li>
 							
-							<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
+							<!-- <li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
 						data-toggle="dropdown">Advocate Details <i class="fa fa-angle-down"></i></a>
 							<ul class="dropdown-menu" role="menu"
 								aria-labelledby="ddlmenuItem">
@@ -85,7 +85,7 @@
 									href="AdvocateWork.jsp">Legal Work Details</a></li>
 									<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="SupplierPaymentDetails.jsp">Advocate Work Details</a></li>
-							</ul></li>
+							</ul></li> -->
 					</c:if>	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
 							data-toggle="dropdown"><font color="#ff8c00"><%=session.getAttribute("uname")%>&nbsp;<i

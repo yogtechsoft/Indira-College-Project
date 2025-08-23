@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				&copy; 2020 Online Shopping System |<a href="http://www.kishorkadam.com/"
+				&copy; 2025 Construction |<a href="https://yogtechsofttest.in/"
 					target="_blank"> Designed by : Yogeshwar Technology & Solution</a>
 			</div>
 

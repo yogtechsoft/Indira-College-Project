@@ -136,7 +136,7 @@
 				
 			<div class="col-md-3">
 					<div class="form-group">
-						<label>Select Sr.No</label> 
+						<label>Select Institute Name</label> 
 							<select class="form-control" id="srNo" name="srNo">
 								<option value="0">Select</option>
 									<%

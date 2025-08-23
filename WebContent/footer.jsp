@@ -63,7 +63,7 @@
 					<h4>Company Information</h4>
 					<ul>
 						<li><i class="glyphicon glyphicon-map-marker"
-							aria-hidden="true"></i>Address : Wakad,Pune, <span>India.</span></li>
+							aria-hidden="true"></i>Address : Bombay Restaurant,Satara<span>India.</span></li>
 						<li><i class="glyphicon glyphicon-envelope"
 							aria-hidden="true"></i>Email : <a href="mailto:info@example.com">yogtechsoft@gmail.com</a></li>
 						<li><i class="glyphicon glyphicon-earphone"
@@ -75,7 +75,7 @@
 		</div>
 		<div class="clearfix"></div>
 		<p class="copy-right">
-			&copy 2020 Online Smart Shop. All rights reserved | Design by <a
+			&copy 2025 Construction All rights reserved | Design by <a
 				href="">Yogeshwar Technology & Solution</a>
 		</p>
 	</div>
