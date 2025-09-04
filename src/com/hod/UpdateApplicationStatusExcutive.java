@@ -45,7 +45,7 @@ public class UpdateApplicationStatusExcutive extends HttpServlet {
 		String waiting="Waiting for Approval";
 		String fileName="";
 		Blob fileData = null;
-		int nextlevelapplicationroleId=6;
+		int nextlevelapplicationroleId=7;
 		 Integer userId = (Integer) hs.getAttribute("userId");
 		try {
 			Connection con = DatabaseConnection.getConnection();
@@ -78,7 +78,7 @@ public class UpdateApplicationStatusExcutive extends HttpServlet {
 					}
 					
 					int value = DatabaseConnection.insertUpdateFromSqlQuery(
-							"insert into `tbl_purchase_department_application_received_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata)"
+							"insert into `tbl_account_department_application_received_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata)"
 							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+waiting+"',"+userId+","+nextlevelapplicationroleId+",'"+""+"','"+""+"','"+fileName+"','"+fileData+"')");
 					if(value>0) {
 						

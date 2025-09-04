@@ -11,6 +11,9 @@ public class ShowConstructionSiteInspectionDetailsModel {
 	public String modifiedBy;
 	public String todayDate;
 	public String dailyTaskDetails;
+	public String fileName;
+	public String fileData;
+	public int id;
 	public String getSiteWorkDetails() {
 		return siteWorkDetails;
 	}
@@ -64,6 +67,24 @@ public class ShowConstructionSiteInspectionDetailsModel {
 	}
 	public void setDailyTaskDetails(String dailyTaskDetails) {
 		this.dailyTaskDetails = dailyTaskDetails;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getFileData() {
+		return fileData;
+	}
+	public void setFileData(String fileData) {
+		this.fileData = fileData;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

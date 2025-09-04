@@ -185,6 +185,45 @@ public class AdminLogin extends HttpServlet {
 						response.sendRedirect("admin-login.jsp");
 						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
 					}
+				}else if(isActive.equals("Y") && roleId.equals("7")) {
+					if (email.equals(userName) && pass.equals(password)) {
+						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+						}
+						 session.setAttribute("userId", id);
+						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+					} else {
+						String message = "You have enter wrong credentials";
+						name.setAttribute("credential", message);
+						response.sendRedirect("admin-login.jsp");
+						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
+					}
+				}
+				else if(isActive.equals("Y") && roleId.equals("8")) {
+					if (email.equals(userName) && pass.equals(password)) {
+						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+						}
+						 session.setAttribute("userId", id);
+						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+					} else {
+						String message = "You have enter wrong credentials";
+						name.setAttribute("credential", message);
+						response.sendRedirect("admin-login.jsp");
+						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
+					}
 				}
 				else {
 					hs.setAttribute("uname",displayName );

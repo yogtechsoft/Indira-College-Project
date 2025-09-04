@@ -15,8 +15,9 @@ import javax.servlet.http.HttpSession;
 
 import com.connection.DatabaseConnection;
 
-@WebServlet("/UpdateApplicationStatusPurchaseDepartment")
-public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
+@WebServlet("/UpdateApplicationStatusCPDepartment")
+public class UpdateApplicationStatusCPDepartment extends HttpServlet {
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -68,7 +69,7 @@ public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
 							instituteId=captchResultSet.getInt(1);
 						}	
 				
-						ResultSet data = DatabaseConnection.getResultFromSqlQuery("SELECT fileName,fileData from tbl_purchase_department_application_received_details where id="+srNO);
+						ResultSet data = DatabaseConnection.getResultFromSqlQuery("SELECT fileName,fileData from tbl_cp_department_application_received_details where id="+srNO);
 						while(data.next()) {
 							fileName=data.getString(1);
 							fileData=data.getBlob(2);
@@ -82,17 +83,23 @@ public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
 						
 						
 				String asas="Approved";
-				int i = statement.executeUpdate("UPDATE tbl_purchase_department_application_received_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
+				int i = statement.executeUpdate("UPDATE tbl_cp_department_application_received_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
 					String message="Application Approved successfully";
 					hs.setAttribute("message", message);
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-							"insert into `tblpurchase_department_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
+							"insert into `tblcp_department_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
 							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+fileName+"','"+fileData+"','"+budgetYearDetails+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposedDetails+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
 					if(addCustomer>0) {
 						
 					}
 					
+					int value = DatabaseConnection.insertUpdateFromSqlQuery(
+							"insert into `tbl_purchase_department_application_received_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+waiting+"',"+userId+","+nextlevelapplicationroleId+",'"+""+"','"+""+"','"+fileName+"','"+fileData+"','"+budgetYearDetails+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposedDetails+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
+					if(value>0) {
+						
+					}
 					
 					response.sendRedirect("ViewIndentReportorPurchaseDepartment.jsp");
 				
@@ -102,5 +109,4 @@ public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
 		}
 
 	}
-
 }

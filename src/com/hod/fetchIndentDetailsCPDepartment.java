@@ -18,9 +18,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.model.IndentReportDetails;
 
-@WebServlet("/fetchIndentDetailsPurchaseDepartment")
-public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
-	
+@WebServlet("/fetchIndentDetailsCPDepartment")
+public class fetchIndentDetailsCPDepartment extends  HttpServlet {
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
@@ -28,7 +28,7 @@ public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
 			HttpSession hs=request.getSession();
 
 			List<IndentReportDetails> getDetails=new ArrayList<IndentReportDetails>();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_purchase_department_application_received_details` where id="+srNO);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_cp_department_application_received_details` where id="+srNO);
 			while (captchResultSet.next()) {
 				IndentReportDetails st=new IndentReportDetails();
 				st.setInstituteName(captchResultSet.getString("institute_name"));
@@ -78,5 +78,4 @@ public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

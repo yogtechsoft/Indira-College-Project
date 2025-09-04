@@ -97,7 +97,7 @@
 				<option>Select</option>
 				<%
 				int ip = 0;
-				ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT ss.id,ss.contractorName FROM `tblnewconstructionworkdetails` lp INNER JOIN tblcontractordetails ss on ss.id=lp.contractorId where lp.isWorkCompleted='N' group by ss.contractorName");
+				ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT ss.id,ss.contractorName FROM `tblmaintanceconstructiondetails` lp INNER JOIN tblmaintancecontractorname ss on ss.id=lp.contractorId where lp.isWorkCompleted='N' group by ss.contractorName;");
 				while (contractorName.next()) {
 					ip++;
 				%>
@@ -119,7 +119,7 @@
 				
 				
 			</div>
-		<div class="row">
+			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-success">
 						<div class="panel-heading">Inspection Report Details</div>
@@ -253,7 +253,7 @@
 	
 	function showContractorDetailsWork(){
 		$.ajax({
-			url : 'FetchDataContractorWork',
+			url : 'FetchDataMaintainceContractorDetails',
 			data : {
 				customerName : $('#fetchContractorName').val()
 				},
@@ -275,7 +275,7 @@
 	
 	function showSiteInspectionDetails(){
 		$.ajax({
-			url : 'FetchSiteInspectionDetails',
+			url : 'FetchSiteInspectionMaintaince',
 			data : {
 				fetchContractorName : $('#fetchContractorName').val(),
 				contractorWork:$("#contractorWork").val()
@@ -286,10 +286,10 @@
 				var dataTablesObj = $.parseJSON(responseText);
 				var contractorName=$('#fetchContractorName').val();
 				var contractorWork=$("#contractorWork").val()
-				
+			
 				for(var i=0;i<=dataTablesObj.length;i++){
 					var id=dataTablesObj[i].id;
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].siteWorkDetails+"</td><td>"+dataTablesObj[i].campus+"</td><td>"+dataTablesObj[i].building+"</td><td>"+dataTablesObj[i].floor+"</td><td>"+dataTablesObj[i].startDate+"</td><td>"+dataTablesObj[i].endDate+"</td><td>"+dataTablesObj[i].modifiedBy+"</td><td>"+dataTablesObj[i].todayDate+"</td><td>"+dataTablesObj[i].dailyTaskDetails+"</td><td><a href='DownloadPhotoInspection?contractorId=" + contractorName + 
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].siteWorkDetails+"</td><td>"+dataTablesObj[i].campus+"</td><td>"+dataTablesObj[i].building+"</td><td>"+dataTablesObj[i].floor+"</td><td>"+dataTablesObj[i].startDate+"</td><td>"+dataTablesObj[i].endDate+"</td><td>"+dataTablesObj[i].modifiedBy+"</td><td>"+dataTablesObj[i].todayDate+"</td><td>"+dataTablesObj[i].dailyTaskDetails+"</td><td><a href='DownloadPhotoMaintainceInspection?contractorId=" + contractorName + 
 				            "&siteWorkDetails=" + contractorWork + "&id=" + id + " ' target='_blank'>View Photo</a></td></tr>")
 				}
 				

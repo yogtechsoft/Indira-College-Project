@@ -20,6 +20,15 @@ public class IndentReportDetails {
 	private String hodAppreovedDate;
 	private String fileName;
 	private String status;
+	private String budgetYear;
+	private String balanceProvision;
+	private String proposedExpesnseAmount;
+	private String balanceProvisionAmount;
+	private String balanceAfterProposedAmount;
+	private String expensesTilDate;
+	private String budgetType;
+
+	
 	public String getIndenterName() {
 		return indenterName;
 	}
@@ -128,5 +137,49 @@ public class IndentReportDetails {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getBudgetYear() {
+		return budgetYear;
+	}
+	public void setBudgetYear(String budgetYear) {
+		this.budgetYear = budgetYear;
+	}
+	public String getBalanceProvision() {
+		return balanceProvision;
+	}
+	public void setBalanceProvision(String balanceProvision) {
+		this.balanceProvision = balanceProvision;
+	}
+	public String getBalanceProvisionAmount() {
+		return balanceProvisionAmount;
+	}
+	public void setBalanceProvisionAmount(String balanceProvisionAmount) {
+		this.balanceProvisionAmount = balanceProvisionAmount;
+	}
+	public String getBalanceAfterProposedAmount() {
+		return balanceAfterProposedAmount;
+	}
+	public void setBalanceAfterProposedAmount(String balanceAfterProposedAmount) {
+		this.balanceAfterProposedAmount = balanceAfterProposedAmount;
+	}
+	public String getExpensesTilDate() {
+		return expensesTilDate;
+	}
+	public void setExpensesTilDate(String expensesTilDate) {
+		this.expensesTilDate = expensesTilDate;
+	}
+	public String getBudgetType() {
+		return budgetType;
+	}
+	public void setBudgetType(String budgetType) {
+		this.budgetType = budgetType;
+	}
+	public String getProposedExpesnseAmount() {
+		return proposedExpesnseAmount;
+	}
+	public void setProposedExpesnseAmount(String proposedExpesnseAmount) {
+		this.proposedExpesnseAmount = proposedExpesnseAmount;
+	}
+	
+	
 		
 }

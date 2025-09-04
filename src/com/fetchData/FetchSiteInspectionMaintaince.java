@@ -15,19 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 import com.connection.DatabaseConnection;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.model.ConstructionSiteModel;
 import com.model.ShowConstructionSiteInspectionDetailsModel;
 
-@WebServlet("/FetchSiteInspectionDetails")
-public class FetchSiteInspectionDetails extends HttpServlet {
-	
+@WebServlet("/FetchSiteInspectionMaintaince")
+public class FetchSiteInspectionMaintaince extends HttpServlet {
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
 			String contractorId = request.getParameter("fetchContractorName");
 			String workTitleDetails=request.getParameter("contractorWork");
 			List<ShowConstructionSiteInspectionDetailsModel> getDetails=new ArrayList<ShowConstructionSiteInspectionDetailsModel>();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT siteWorkDetails,campus,building,floor,startDate,endDate,modifiedBy,todayDate,dailyTaskDetails,file_name,file_data,id FROM tblsiteinspectiondetails WHERE contractorId="+contractorId+" and siteWorkDetails='"+workTitleDetails+"'");
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery
+			("SELECT siteWorkDetails,campus,building,floor,startDate,endDate,modifiedBy,todayDate,dailyTaskDetails,file_name,file_data,id FROM tblmaintaincesiteinspect WHERE contractorId="+contractorId+" and siteWorkDetails='"+workTitleDetails+"'");
 			
 			while (captchResultSet.next()) {
 				ShowConstructionSiteInspectionDetailsModel st=new ShowConstructionSiteInspectionDetailsModel();
@@ -62,5 +62,4 @@ public class FetchSiteInspectionDetails extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

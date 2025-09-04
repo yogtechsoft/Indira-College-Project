@@ -18,8 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.model.IndentReportDetails;
 
-@WebServlet("/fetchIndentDetailsPurchaseDepartment")
-public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
+@WebServlet("/fetchAccountDepartmentIndentDetails")
+public class fetchAccountDepartmentIndentDetails extends  HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,7 +28,7 @@ public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
 			HttpSession hs=request.getSession();
 
 			List<IndentReportDetails> getDetails=new ArrayList<IndentReportDetails>();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_purchase_department_application_received_details` where id="+srNO);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_account_department_application_received_details` where id="+srNO);
 			while (captchResultSet.next()) {
 				IndentReportDetails st=new IndentReportDetails();
 				st.setInstituteName(captchResultSet.getString("institute_name"));
@@ -49,13 +49,6 @@ public class fetchIndentDetailsPurchaseDepartment extends  HttpServlet {
 				st.setHodAppreovedDate(captchResultSet.getString("hod_approved_date"));
 				hs.setAttribute("rmkStatus", captchResultSet.getString("hod_status_remark"));
 				st.setFileName(captchResultSet.getString("filedata"));
-				st.setBudgetYear(captchResultSet.getString("provision_year"));
-				st.setBalanceProvision(captchResultSet.getString("balance_provision"));
-				st.setBalanceProvisionAmount(captchResultSet.getString("balance_provision_amount"));
-				st.setProposedExpesnseAmount(captchResultSet.getString("proposed_expenses_amount"));
-				st.setBalanceAfterProposedAmount(captchResultSet.getString("balance_after_proposed_amount"));
-				st.setExpensesTilDate(captchResultSet.getString("expenses_till_date"));
-				st.setBudgetType(captchResultSet.getString("budget_type"));
 				getDetails.add(st);
 				
 			}

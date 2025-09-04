@@ -109,7 +109,7 @@ chart.render();
 					</h4>
 				
 </div>
-<form role="form" action=UpdateConstructionWorkProgress method="post">
+<form role="form" action=UpdateConstructionWorkProgress method="post" enctype="multipart/form-data">
 
 	<div class="row">
 		
@@ -198,7 +198,13 @@ chart.render();
 		<div class="col-md-3">	
 			<div class="form-group">
 					<label>Daily Work Status Details</label> 
-					<input class="form-control" type="text" name="workStatus" id="workStatus">
+					<input class="form-control" type="text" name="workStatus" id="workStatus" required="required">
+				</div>
+		</div>
+		<div class="col-md-3">	
+			<div class="form-group">
+					<label>Upload Image</label> 
+					<input class="form-control" type="file" name="uploadPhoto" accept="image/*" id="uploadPhoto" required="required">
 				</div>
 		</div>
 		<div class="col-md-3">

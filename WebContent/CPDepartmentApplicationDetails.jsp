@@ -126,7 +126,7 @@
 					
   
 </div>
-<form role="form" action="UpdateApplicationStatusPurchaseDepartment" method="post">
+<form role="form" action=UpdateApplicationStatusCPDepartment method="post">
 
 	<div class="row">
 		
@@ -146,7 +146,7 @@
 									 Integer roleId=(Integer) session.getAttribute("role");
 									 Integer instId=(Integer) session.getAttribute("instid");
 									 String status="Waiting For Approval";
-									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_purchase_department_application_received_details` WHERE role_id="+roleId+" and status='"+status+"'");
+									ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT id,institute_name FROM `tbl_cp_department_application_received_details` WHERE role_id="+roleId+" and status='"+status+"'");
 										while (contractorName.next()) {
 										ip++;
 									%>
@@ -533,7 +533,7 @@
 	
 	$("#srNo").change(function(){
 		$.ajax({
-			url : 'fetchIndentDetailsPurchaseDepartment',
+			url : 'fetchIndentDetailsCPDepartment',
 			data : {
 				srNo:$("#srNo").val()
 			},
