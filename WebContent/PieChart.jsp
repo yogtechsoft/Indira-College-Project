@@ -120,8 +120,8 @@ chart.render();
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Select Contractor Name</label> 
-				<select class="form-control" id="customerName" name="customerName" onchange="fetchDailyWorkProgress();">
-				<option>Select</option>
+				<select class="form-control" id="customerName" name="customerName" onchange="fetchDailyWorkProgress();" required="required">
+				<option value="">Select</option>
 				<%
 				int ip = 0;
 				ResultSet contractorName = DatabaseConnection.getResultFromSqlQuery("SELECT ss.id,ss.contractorName FROM `tblnewconstructionworkdetails` lp INNER JOIN tblcontractordetails ss on ss.id=lp.contractorId where lp.isWorkCompleted='N' group by ss.contractorName");
@@ -139,8 +139,7 @@ chart.render();
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Select Contractor Work</label> 
-				<select class="form-control" id="contractorWork" name="contractorWork" onchange="fetchDetailsForInspection();">
-				
+				<select class="form-control" id="contractorWork" name="contractorWork" onchange="fetchDetailsForInspection();" required="required">
 				</select>
 			</div>
 		</div>
@@ -150,7 +149,7 @@ chart.render();
 		<div class="col-md-3">
 			<div class="form-group">
 				<label>Enter Total Work Completed in Number</label> 
-				<input class="form-control" type="number" name="workDetails" id="workDetails">
+				<input class="form-control" type="number" name="workDetails" id="workDetails" required="required">
 				
 			</div>
 		</div>
@@ -207,10 +206,17 @@ chart.render();
 					<input class="form-control" type="file" name="uploadPhoto" accept="image/*" id="uploadPhoto" required="required">
 				</div>
 		</div>
+		<div class="col-md-3">	
+				<div class="form-group">
+					<label>Total Completed Project In Percent</label> 
+					<input class="form-control"  type="text" name="completedWork" id="completedWork" />
+				</div>
+		</div>
 		<div class="col-md-3">
 			<div class="form-group" style="margin-top:28px;">
 				
 						<button type="submit"  class="btn btn-success" id="btnUpdate" name="btnUpdate" >Update Work Progress</button>
+						
 				
 			</div>
 		</div>
@@ -374,8 +380,6 @@ chart.render();
 	
 	 
 	}  */
-
-	
 	function fetchDailyWorkProgress(){
 		/* $.ajax({
 			url : 'FetchContractorWorkProgressDetails',
@@ -428,7 +432,7 @@ chart.render();
 					var dataTablesObj = $.parseJSON(responseText);
 					$("#contractorWork").html("");
 					
-					$("#contractorWork").append("<option>Select</option>")
+					$("#contractorWork").append("<option value=''>Select</option>")
 					for(var i=0;i<=dataTablesObj.length-1;i++){
 						
 						$("#contractorWork").append("<option value='"+dataTablesObj[i].CconstructionSiteDetails+"'>"+dataTablesObj[i].CconstructionSiteDetails+"</option>");
@@ -487,6 +491,24 @@ chart.render();
 			},
 			success : function(responseText) {
 				var dataTablesObj = $.parseJSON(responseText);
+				$("#completedWork").val(dataTablesObj[0].GrpahtotalWorkCompleted);
+				$("#completedWork").prop('readonly',true);
+				var projectComplete=dataTablesObj[0].GrpahtotalWorkCompleted;
+				if(projectComplete == 100){
+					$("#startDate").prop('readonly',true);
+					$("#endDate").prop('readonly',true);
+					$("#uploadPhoto").prop('disabled',true);
+					$("#workDetails").prop('readonly',true);
+					$("#workStatus").prop('readonly',true);
+					$("#btnUpdate").hide();
+				}else{
+					$("#startDate").prop('readonly',false);
+					$("#endDate").prop('readonly',false);
+					$("#uploadPhoto").prop('disabled',false);
+					$("#workDetails").prop('readonly',false);
+					$("#workStatus").prop('readonly',false);
+					$("#btnUpdate").show();
+				}
 				var chart = new CanvasJS.Chart("chartContainer", {
 					theme: "light2",
 					animationEnabled: true,
@@ -512,6 +534,23 @@ chart.render();
 				chart.render();
 
 				 
+			}
+		});
+		
+		$("#workDetails").change(function(){
+			var completedValue = parseFloat($("#completedWork").val()); 
+			var enterValue = parseFloat($("#workDetails").val());
+			var total = enterValue+completedValue;
+			if(enterValue>100){
+				alert("Number cannot be greater than 100");
+				 $("#workDetails").val("");
+			}
+			else if(total  == 100){
+				alert("Your total work is 100% complete after you cannot edit this site");
+			}
+			else if (completedValue >= 100) {
+			    alert("Work already completed");
+			    $("#workDetails").val("");
 			}
 		});
 	}

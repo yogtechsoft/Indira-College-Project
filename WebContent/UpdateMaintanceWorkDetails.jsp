@@ -149,8 +149,8 @@ chart.render();
 		
 		<div class="col-md-3">
 			<div class="form-group">
-				<label>Enter Work Details</label> 
-				<input class="form-control" type="text" name="workDetails" id="workDetails" required="required">
+				<label>Enter Total Work Completed in Number</label> 
+				<input class="form-control" type="number" name="workDetails" id="workDetails" required="required">
 				
 			</div>
 		</div>
@@ -201,10 +201,17 @@ chart.render();
 					<input class="form-control" type="text" name="workStatus" id="workStatus" required="required">
 				</div>
 		</div>
+		
 		<div class="col-md-3">	
 			<div class="form-group">
 					<label>Upload Image</label> 
 					<input class="form-control" type="file" name="uploadPhoto" accept="image/*" id="uploadPhoto" required="required">
+				</div>
+		</div>
+		<div class="col-md-3">	
+				<div class="form-group">
+					<label>Total Completed Project In Percent</label> 
+					<input class="form-control"  type="text" name="completedWork" id="completedWork" />
 				</div>
 		</div>
 		<div class="col-md-3">
@@ -487,6 +494,24 @@ chart.render();
 			},
 			success : function(responseText) {
 				var dataTablesObj = $.parseJSON(responseText);
+				$("#completedWork").val(dataTablesObj[0].maintainceTotalWorkCompleted);
+				$("#completedWork").prop('readonly',true);
+				var projectComplete=dataTablesObj[0].maintainceTotalWorkCompleted;
+				if(projectComplete == 100){
+					$("#startDate").prop('readonly',true);
+					$("#endDate").prop('readonly',true);
+					$("#uploadPhoto").prop('disabled',true);
+					$("#workDetails").prop('readonly',true);
+					$("#workStatus").prop('readonly',true);
+					$("#btnUpdate").hide();
+				}else{
+					$("#startDate").prop('readonly',false);
+					$("#endDate").prop('readonly',false);
+					$("#uploadPhoto").prop('disabled',false);
+					$("#workDetails").prop('readonly',false);
+					$("#workStatus").prop('readonly',false);
+					$("#btnUpdate").show();
+				}
 				var chart = new CanvasJS.Chart("chartContainer", {
 					theme: "light2",
 					animationEnabled: true,
@@ -512,6 +537,23 @@ chart.render();
 				chart.render();
 
 				 
+			}
+		});
+		
+		$("#workDetails").change(function(){
+			var completedValue = parseFloat($("#completedWork").val()); 
+			var enterValue = parseFloat($("#workDetails").val());
+			var total = enterValue+completedValue;
+			if(enterValue>=100){
+				alert("Number cannot be greater than 100");
+				 $("#workDetails").val("");
+			}
+			else if(total  == 100){
+				alert("Your total work is 100% complete after you cannot edit this site");
+			}
+			else if(completedValue >= 100) {
+			    alert("Work already completed");
+			    $("#workDetails").val("");
 			}
 		});
 	}

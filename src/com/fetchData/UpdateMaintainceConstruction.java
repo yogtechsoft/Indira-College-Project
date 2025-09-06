@@ -44,6 +44,7 @@ public class UpdateMaintainceConstruction extends  HttpServlet {
 			String workStatus = "";
 			String contractorName="";
 			String imageName="";
+			String workCompleted="";
 			HttpSession hs=request.getSession();
 			
 			try {
@@ -81,6 +82,9 @@ public class UpdateMaintainceConstruction extends  HttpServlet {
 
 							FileItem workStatusDaily = (FileItem) multiparts.get(8);
 							workStatus = workStatusDaily.getString();
+							
+							FileItem completedWorkPercent = (FileItem) multiparts.get(10);
+							workCompleted = completedWorkPercent.getString();
 						}
 					}
 				}
@@ -103,20 +107,39 @@ public class UpdateMaintainceConstruction extends  HttpServlet {
 	        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 	        String formattedDate = formatter.format(today);
 			
-			int update = DatabaseConnection.insertUpdateFromSqlQuery
-			("update tblmaintanceconstructiondetails set totalWorkComplete='"+workDetails+"' WHERE  workDetails='"+contractorWork+"' and contractorId="+contractorDetails);
-			if(update == 1) {
-				String str="Record Update Succrssfully";				
-				//insert siteInspection Details
-				int i = DatabaseConnection.insertUpdateFromSqlQuery("insert into tblmaintaincesiteinspect(siteWorkDetails,campus,building,floor,startDate,endDate,dailyTaskDetails,contractorId,todayDate,modifiedBy,file_name,file_data) "
-						+ "values('" + contractorWork+ "','" + campusName + "','"+building+"','" + floor + "','" + startDate + "','"+endDate+"','"+workStatus+"','"+contractorDetails+"','"+formattedDate+"','"+username+"','"+imagePath+"','"+imagePath+"')");
-				if (i > 0) {
-					String success = "Record Updated successfully.";
-					session.setAttribute("message", success);
-					response.sendRedirect("UpdateMaintanceWorkDetails.jsp");
-				}
-				
-			}
+	        int total=Integer.parseInt(workDetails) + Integer.parseInt(workCompleted);
+	        if(total == 100) {
+	        	int update = DatabaseConnection.insertUpdateFromSqlQuery
+	        			("update tblmaintanceconstructiondetails set totalWorkComplete='"+String.valueOf(total)+"', totalPendingWork='"+String.valueOf(0)+"' WHERE  workDetails='"+contractorWork+"' and contractorId="+contractorDetails);
+	        			if(update == 1) {
+	        				String str="Record Update Succrssfully";				
+	        				//insert siteInspection Details
+	        				int i = DatabaseConnection.insertUpdateFromSqlQuery("insert into tblmaintaincesiteinspect(siteWorkDetails,campus,building,floor,startDate,endDate,dailyTaskDetails,contractorId,todayDate,modifiedBy,file_name,file_data) "
+	        						+ "values('" + contractorWork+ "','" + campusName + "','"+building+"','" + floor + "','" + startDate + "','"+endDate+"','"+workStatus+"','"+contractorDetails+"','"+formattedDate+"','"+username+"','"+imagePath+"','"+imagePath+"')");
+	        				if (i > 0) {
+	        					String success = "Record Updated successfully.";
+	        					session.setAttribute("message", success);
+	        					response.sendRedirect("UpdateMaintanceWorkDetails.jsp");
+	        				}
+	        				
+	        			}
+	        }else {
+	        	int update = DatabaseConnection.insertUpdateFromSqlQuery
+	        			("update tblmaintanceconstructiondetails set totalWorkComplete='"+String.valueOf(total)+"' WHERE  workDetails='"+contractorWork+"' and contractorId="+contractorDetails);
+	        			if(update == 1) {
+	        				String str="Record Update Succrssfully";				
+	        				//insert siteInspection Details
+	        				int i = DatabaseConnection.insertUpdateFromSqlQuery("insert into tblmaintaincesiteinspect(siteWorkDetails,campus,building,floor,startDate,endDate,dailyTaskDetails,contractorId,todayDate,modifiedBy,file_name,file_data) "
+	        						+ "values('" + contractorWork+ "','" + campusName + "','"+building+"','" + floor + "','" + startDate + "','"+endDate+"','"+workStatus+"','"+contractorDetails+"','"+formattedDate+"','"+username+"','"+imagePath+"','"+imagePath+"')");
+	        				if (i > 0) {
+	        					String success = "Record Updated successfully.";
+	        					session.setAttribute("message", success);
+	        					response.sendRedirect("UpdateMaintanceWorkDetails.jsp");
+	        				}
+	        				
+	        			}
+	        }
+			
 			
 			
 			
