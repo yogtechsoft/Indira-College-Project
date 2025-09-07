@@ -58,11 +58,12 @@ public class UpdateApplicationStatus extends HttpServlet {
 				String asas="Approved";
 				int i = statement.executeUpdate("UPDATE tbl_indent_save_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
 					String message="Application Approved successfully";
+		
 					hs.setAttribute("message", message);
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_hod_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+asas+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
 					if(addCustomer>0) {
 						
 					}

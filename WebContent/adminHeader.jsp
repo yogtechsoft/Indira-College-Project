@@ -36,9 +36,11 @@
 						</c:if>
 						<c:if test = "${ roleId ==7}">
 							<li><a href="AccountDepartmentApplicationDetails.jsp">View Indent Details</a></li>
+							<li><a href="viewAccountDepartmentApplication.jsp">View Application Details</a></li>
 						</c:if>
 						<c:if test = "${ roleId ==8}">
 							<li><a href="CPDepartmentApplicationDetails.jsp">View Indent Details</a></li>
+							<li><a href="CpApplicationDetails.jsp">View Application Details</a></li>
 						</c:if>
 					<c:if test = "${roleId !=1 && roleId !=2 && roleId !=4 && roleId !=5 && roleId !=6 && roleId !=7 && roleId !=8}">	
 						<li><a href="#" class="dropdown-toggle" id="ddlmenuItem"
@@ -120,7 +122,8 @@
 									href="WorkCompletionReport.jsp">Upload Work Completion Report</a></li>
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="ViewAllApplicationProjectDepartment.jsp">View All Application Details</a></li>	
-							</c:if>		
+							</c:if>	
+								
 							</ul>
 							</li>		
 					</ul>

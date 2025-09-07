@@ -95,12 +95,18 @@ public class AdminLogin extends HttpServlet {
 							isb=institute.getString("insitiute_name");
 							instid=institute.getInt("institute_id");
 						}
-						
+						ResultSet status = st.executeQuery("select count(status) FROM `tbl_indent_save_details` WHERE status='Waiting For Approval' and institute_id="+instid+"");
+						int statusCount=0;
+						while(status.next()) {
+							statusCount=status.getInt(1);
+						}
+
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
 						name.setAttribute("instituteName",isb );
 						name.setAttribute("instid",instid );
+						name.setAttribute("statusCount", statusCount);
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -117,9 +123,15 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet projectStatus = st.executeQuery("select count(status) FROM `tbl_project_department_application_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount1=0;
+						while(projectStatus.next()) {
+							statusCount1=projectStatus.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount1);
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -136,9 +148,16 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet directorStatus = st.executeQuery("select count(status) FROM `tbl_director_department_application_received_dewtails` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount2=0;
+						while(directorStatus.next()) {
+							statusCount2=directorStatus.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount2);
+
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -156,9 +175,16 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet DmdirectorStatus = st.executeQuery("select count(status) FROM `tbl_project_director_excutor_application_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount3=0;
+						while(DmdirectorStatus.next()) {
+							statusCount3=DmdirectorStatus.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount3);
+
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -175,9 +201,15 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet purchaseDepartment = st.executeQuery("select count(status) FROM `tbl_purchase_department_application_received_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount6=0;
+						while(purchaseDepartment.next()) {
+							statusCount6=purchaseDepartment.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount6);
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -194,9 +226,16 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet accountDepartment = st.executeQuery("select count(status) FROM `tbl_account_department_application_received_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount4=0;
+						while(accountDepartment.next()) {
+							statusCount4=accountDepartment.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount4);
+
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";
@@ -214,9 +253,15 @@ public class AdminLogin extends HttpServlet {
 							id =institute.getInt("id");
 							role=institute.getInt("role_id");
 						}
+						ResultSet cppDepartment = st.executeQuery("select count(status) FROM `tbl_cp_department_application_received_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount9=0;
+						while(cppDepartment.next()) {
+							statusCount9=cppDepartment.getInt(1);
+						}
 						 session.setAttribute("userId", id);
 						name.setAttribute("roleId",roleId );
 						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount9);
 						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
 					} else {
 						String message = "You have enter wrong credentials";

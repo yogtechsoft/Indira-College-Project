@@ -28,7 +28,7 @@ public class fetchIndentDetailsProjectDm extends  HttpServlet {
 			HttpSession hs=request.getSession();
 
 			List<IndentReportDetails> getDetails=new ArrayList<IndentReportDetails>();
-			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_save_project_dept_application` where id="+srNO);
+			ResultSet captchResultSet = DatabaseConnection.getResultFromSqlQuery("SELECT * FROM `tbl_director_department_application_received_dewtails` where id="+srNO);
 			while (captchResultSet.next()) {
 				IndentReportDetails st=new IndentReportDetails();
 				st.setInstituteName(captchResultSet.getString("institute_name"));

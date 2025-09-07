@@ -27,6 +27,26 @@
 <!-- GOOGLE FONT -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+	
+	
+	<style>
+    .notification {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .notification .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            padding: 4px 7px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+            font-size: 12px;
+        }
+    </style>
 
 </head>
 <body>
@@ -46,10 +66,20 @@
 				</a>
 
 			</div>
-
+			
 			<div class="right-div">
 				<a href="admin-logout.jsp" class="btn btn-danger pull-right">LOG ME OUT</a>
 			</div>
+			
+			<div class="right-div">
+				<div class="notification">
+			        <i class="fa-solid fa-bell fa-2x"></i>
+			        <span class="badge">
+			            <%= session.getAttribute("statusCount") != null ? session.getAttribute("statusCount") : 0 %>
+			        </span>
+			    </div>
+			    
+		   </div> 
 		</div>
 	</div>
 	<jsp:include page="adminHeader.jsp"></jsp:include>
@@ -62,7 +92,7 @@
 				</div>
 
 			</div>
-
+		<c:if test = "${ roleId ==1}">
 			<div class="row">
 			
 				<div class="col-md-3 col-sm-3 col-xs-6">
@@ -85,92 +115,383 @@
 				<div class="col-md-3 col-sm-3 col-xs-6">
 					<div class="alert alert-success back-widget-set text-center">
 						<i class="fa fa-users fa-5x"></i>
-						<%-- <%
-							ResultSet totalCustomer=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_customer_register");
+						 <%
+							ResultSet totalCustomer=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_indent_save_details where user_id="+userId+" and status='Approved'");
 							totalCustomer.next();
 							int allCustomer=totalCustomer.getInt(1);
-						%> --%>
-						<h3><%-- <%=allCustomer %> --%>
-						0
+						%> 
+						<h3> <%=allCustomer --%>
+						
 						</h3>
-						Total Customers
+						Total No Of Approved Application
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-3 col-xs-6">
-					<div class="alert alert-warning back-widget-set text-center">
-						<i class="fa fa-recycle fa-5x"></i>
-						<%-- <%
-							ResultSet totalOrders=DatabaseConnection.getResultFromSqlQuery("select SUM(enterPaidAmount) from tbl_customer_payment_details");
-							totalOrders.next();
-							int allOrders=totalOrders.getInt(1);
-						%> --%>
-						<h3><%-- <%=allOrders %> --%>
-						0
-						</h3>
-						Total Construction Payment
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-6">
-					<div class="alert alert-danger back-widget-set text-center">
-						<i class="fa fa-briefcase fa-5x"></i>
-						<%-- <%
-							ResultSet totalContacts=DatabaseConnection.getResultFromSqlQuery("select count(*) from tblcontact");
-							totalContacts.next();
-							int allContacts=totalContacts.getInt(1);
-						%> --%>
-						<h3><%-- <%=allContacts %> --%>
-						0
-						</h3>
-						Total Contacts
-					</div>
-				</div>
-
+				
+				
 
 			</div>
+	</c:if>		
+	
+	<c:if test = "${ roleId ==2}">
+			<div class="row">
 			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_hod_application_save_details where user_id="+adminUserId);
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_hod_application_save_details where user_id="+adminUserId+" and status='Approved'");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+				
+				
+				
+
+			</div>
+	</c:if>	
+	
+	<c:if test = "${ roleId ==3}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_save_project_dept_application where user_id="+adminUserId);
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_save_project_dept_application where user_id="+projectUserId+" and status='Approved'");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+							ResultSet workOrderCreate=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_work_completion_report_project_department where  status='report uploaded'");
+						 workOrderCreate.next();
+							int wp=workOrderCreate.getInt(1);
+						%> 
+						<h3> <%=wp --%>
+						
+						</h3>
+						Total No of Work Completion
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+							ResultSet poReport=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_work_completion_report_project_department ");
+						 poReport.next();
+							int po=poReport.getInt(1);
+						%> 
+						<h3> <%=po --%>
+						
+						</h3>
+						Total No of PO Report 
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+							ResultSet newConstruction=DatabaseConnection.getResultFromSqlQuery("select count(*) from tblnewconstructionworkdetails ");
+						 newConstruction.next();
+							int newConst=newConstruction.getInt(1);
+						%> 
+						<h3> <%=newConst --%>
+						
+						</h3>
+						Total No of New Construction
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+							ResultSet maintaince=DatabaseConnection.getResultFromSqlQuery("select count(*) from tblmaintanceconstructiondetails ");
+						 maintaince.next();
+							int mp=maintaince.getInt(1);
+						%> 
+						<h3> <%=mp --%>
+						
+						</h3>
+						Total No Building Maintaince Work 
+					</div>
+				</div>
+				
+
+			</div>
+	</c:if>	
+	
+	<c:if test = "${ roleId ==4}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_director_department_application_received_dewtails where user_id="+adminUserId);
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Received Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_director_department_application_received_dewtails where user_id="+projectUserId+" and status='Approved'");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+			</div>
+	</c:if>	
+	
+	<c:if test = "${ roleId ==5}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_project_director_excutor_application_details");
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Received Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_project_director_excutor_application_details");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+			</div>
+	</c:if>		
+	
+	<c:if test = "${ roleId ==7}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_account_department_application_received_details");
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Received Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_account_department_application_received_details");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+			</div>
+	</c:if>	
+	
+	<c:if test = "${ roleId ==6}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_purchase_department_application_received_details");
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Received Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_purchase_department_application_received_details");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+				
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+							ResultSet puchasePoCreated=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_create_po_report");
+						 puchasePoCreated.next();
+							int poCreated=puchasePoCreated.getInt(1);
+						%> 
+						<h3> <%=poCreated --%>
+						
+						</h3>
+						Total No Of Po Report
+					</div>
+				</div>
+				
+			</div>
+	</c:if>	
+	<c:if test = "${ roleId ==8}">
+			<div class="row">
+			
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-info back-widget-set text-center">
+						<i class="fa fa-history fa-5x"></i>
+						 <%
+						 Integer adminUserId = (Integer) session.getAttribute("userId");	
+
+							ResultSet totalProduct1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_cp_department_application_received_details");
+							totalProduct1.next();
+							int allProducts1=totalProduct1.getInt(1);
+						%> 
+						<h3>
+							 <%=allProducts1 %> 
+						</h3>
+						Total No Received Application
+					</div>
+				</div>
+		
+				<div class="col-md-3 col-sm-3 col-xs-6">
+					<div class="alert alert-success back-widget-set text-center">
+						<i class="fa fa-users fa-5x"></i>
+						 <%
+						 
+						 Integer projectUserId = (Integer) session.getAttribute("userId");	
+							ResultSet totalCustomer1=DatabaseConnection.getResultFromSqlQuery("select count(*) from tbl_cp_department_application_received_details");
+							totalCustomer1.next();
+							int allCustomer1=totalCustomer1.getInt(1);
+						%> 
+						<h3> <%=allCustomer1 --%>
+						
+						</h3>
+						Total No Of Approved Application
+					</div>
+				</div>
+			</div>
+	</c:if>	
 		<div class="row">
-			<div class="col-md-3 col-sm-3 col-xs-6">
-					<div class="alert alert-danger back-widget-set text-center">
-						<i class="fa fa-briefcase fa-5x"></i>
-						<%-- <%
-							ResultSet totalContacts12=DatabaseConnection.getResultFromSqlQuery("select SUM(total_amount) from tbl_save_labour_contractor_details");
-							totalContacts12.next();
-							int allContacts11=totalContacts12.getInt(1);
-						%> --%>
-						<h3><%-- <%=allContacts11 %> --%>
-						0
-						</h3>
-						Total Labour Contractor Payment
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-6">
-					<div class="alert alert-danger back-widget-set text-center">
-						<i class="fa fa-briefcase fa-5x"></i>
-						<%-- <%
-							ResultSet totalContacts3=DatabaseConnection.getResultFromSqlQuery("select SUM(AmountToPePaid) from tblsupplier_payment_details");
-							totalContacts3.next();
-							int allContacts12=totalContacts3.getInt(1);
-						%> --%>
-						<h3><%-- <%=allContacts12 %> --%>
-						0
-						</h3>
-						Total Supplier Payment
-					</div>
-				</div>
-				<div class="col-md-3 col-sm-3 col-xs-6">
-					<div class="alert alert-danger back-widget-set text-center">
-						<i class="fa fa-briefcase fa-5x"></i>
-						<%-- <%
-							ResultSet totalContacts111=DatabaseConnection.getResultFromSqlQuery("select SUM(totalAmount) from tblmaterialdetails");
-							totalContacts111.next();
-							int allContacts121=totalContacts111.getInt(1);
-						%> --%>
-						<h3><%-- <%=allContacts121 %> --%>
-						0
-						</h3>
-						Total Material Amount
-					</div>
-				</div>
+			
+				
+				
 		</div>
 			
 			
@@ -188,6 +509,16 @@
 	<script src="assets/js/bootstrap.js"></script>
 	<!-- CUSTOM SCRIPTS  -->
 	<script src="assets/js/custom.js"></script>
+	<script>
+	
+	</script>
+	<script>
+	function toggleNotifications() {
+	    var box = $("#count").val();
+	    alert(box);
+	}
+	
+	</script>
 	<script>
 		(function(i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;

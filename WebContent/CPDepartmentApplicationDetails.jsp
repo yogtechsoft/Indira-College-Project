@@ -471,7 +471,7 @@
      
      $("#downloadPDF").click(function(){
     	 var srNo = $('#srNo').val();
-    	    window.location.href = 'GenerateIndentReportPurchaseDepartment?srNo=' + srNo;
+    	    window.location.href = 'GenerateIndentReportCPPDepartment?srNo=' + srNo;
      });
     
      
@@ -609,7 +609,7 @@
 				var srrNo=$("#srNo").val();
 				
 				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfPurchaseDeprtment?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdfCPPDepartment?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
 					}
 				
 				}	

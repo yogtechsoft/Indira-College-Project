@@ -147,8 +147,12 @@ chart.render();
 		</div>
 		
 		<div class="row">
-				<div class="col-md-12">
-						<table class="table table-striped table-bordered table-hover" id="getSupplierValue">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="panel panel-success">
+						<div class="panel-heading">Account Summary Details</div>
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-striped table-bordered table-hover" id="getSupplierValue">
 									<thead>
 										<tr>
 											<th>Contractor Name</th>
@@ -161,21 +165,19 @@ chart.render();
 											<th>Total Amount</th>
 											<th>Advance Payment</th>
 											<th>Date</th>
-											
 										</tr>
 									</thead>
-									
 									<tbody id="fetchValue">
 										
 									</tbody>
 									
 								</table>
+							</div>
+						</div>
+					</div>
 				</div>
-				
-				
-				
-				
-		</div>
+
+			</div>
 		
 		</form>
 						

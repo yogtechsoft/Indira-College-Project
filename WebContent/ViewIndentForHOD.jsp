@@ -69,7 +69,7 @@
 				}
 			%>
 				<div class="col-md-12">
-					<h4 class="header-line">View Indent Details
+					<h4 class="header-line">View Indent Details 
 					</h4>
 								<div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -326,8 +326,7 @@
 		  });
 	
 		//show table ajax call
-		
-			
+	
 		
 		
 	

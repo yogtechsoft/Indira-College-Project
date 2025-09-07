@@ -66,7 +66,7 @@ public class UpdateApplicationStatusDirector extends HttpServlet {
 						
 						
 				String asas="Approved";
-				int i = statement.executeUpdate("UPDATE tbl_save_project_dept_application set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
+				int i = statement.executeUpdate("UPDATE tbl_director_department_application_received_dewtails set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
 					String message="Application Approved successfully";
 					hs.setAttribute("message", message);
 					
