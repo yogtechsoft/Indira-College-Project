@@ -270,6 +270,32 @@ public class AdminLogin extends HttpServlet {
 						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
 					}
 				}
+				else if(isActive.equals("Y") && roleId.equals("9")) {
+					if (email.equals(userName) && pass.equals(password)) {
+						name.setAttribute("uname",displayName );
+						ResultSet institute = st.executeQuery("SELECT id,role_id FROM `tbl_user_register_details` WHERE emailId='" + email +"' and password='" + pass + "'");
+						 HttpSession session = request.getSession();
+						while(institute.next()) {
+							id =institute.getInt("id");
+							role=institute.getInt("role_id");
+						}
+						ResultSet cppDepartment = st.executeQuery("select count(status) FROM `tbl_project_cordniator_application_received_details` WHERE status='Waiting For Approval' and role_id="+roleId+"");
+						int statusCount9=0;
+						while(cppDepartment.next()) {
+							statusCount9=cppDepartment.getInt(1);
+						}
+						 session.setAttribute("userId", id);
+						name.setAttribute("roleId",roleId );
+						name.setAttribute("role",role );
+						name.setAttribute("statusCount", statusCount9);
+						response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");
+					} else {
+						String message = "You have enter wrong credentials";
+						name.setAttribute("credential", message);
+						response.sendRedirect("admin-login.jsp");
+						int update = DatabaseConnection.insertUpdateFromSqlQuery("update tblcaptcha set captcha='"+ newRandomCaptcha + "'");
+					}
+				}
 				else {
 					hs.setAttribute("uname",displayName );
 					response.sendRedirect("dashboard.jsp?_tokens='" + tokens + "'");

@@ -57,7 +57,8 @@ public class saveIndentProjectDetails extends  HttpServlet {
 		String password="";
 		String finaName="";
 		String is_active="";
-		int role=4;
+		//int role=4;
+		int role=9;
 		String Hod_status="";
 		String imageName="";
 		String productName="";
@@ -157,10 +158,13 @@ public class saveIndentProjectDetails extends  HttpServlet {
 					"insert into `tbl_save_project_dept_application`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
 					+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"')");
 			
-					int data = DatabaseConnection.insertUpdateFromSqlQuery(
+					/*int data = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_director_department_application_received_dewtails`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
 							+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"')");
-					
+					*/
+					int data = DatabaseConnection.insertUpdateFromSqlQuery(
+							"insert into `tbl_project_cordniator_application_received_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
+							+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"')");
 					
 					if (addCustomer > 0) {
 				
