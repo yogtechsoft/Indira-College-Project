@@ -163,7 +163,9 @@
 										</tr>
 									</thead>
 									<%
-										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_hod_application_save_details");
+									 Integer userId = (Integer) session.getAttribute("userId");	
+
+										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_hod_application_save_details where user_id="+userId);
 									while (rs.next()) {
 									%>
 									<tbody>
