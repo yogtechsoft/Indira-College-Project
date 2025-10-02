@@ -9,15 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.connection.DatabaseConnection;
 
 @WebServlet("/SaveIndentDetails")
 public class SaveIndentDetails extends HttpServlet {
+	
+    private static final Logger logger = Logger.getLogger(SaveIndentDetails.class.getName());
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+
 		String InstituteName  = request.getParameter("InstituteName");
 		String indenterName = request.getParameter("indenterName");
 		String department = request.getParameter("department");
@@ -56,13 +60,15 @@ public class SaveIndentDetails extends HttpServlet {
 				String message="Data Added successfully.";
 				hs.setAttribute("message", message);
 				response.sendRedirect("CreateIndent.jsp");
+
 			} else {
 				String message="fail";
 				hs.setAttribute("message", message);
 				response.sendRedirect("CreateIndent.jsp");
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();
+            logger.log(Level.SEVERE, "Getting Exception in SaveIndentDetails", ex);
+
 		}
 	}
 }

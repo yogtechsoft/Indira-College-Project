@@ -121,6 +121,8 @@
 							<c:if test = "${roleId !=1 && roleId !=2 && roleId !=4 && roleId !=5 && roleId !=6 && roleId !=7 && roleId !=8 && roleId !=9}">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
 									href="RegisterUser.jsp">Register User</a></li>
+									<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="ViewRegisterUserDetails.jsp">View Register User</a></li>
 							</c:if>	
 							<c:if test = "${roleId == 3}">
 								<li role="presentation"><a role="menuitem" tabindex="-1"
