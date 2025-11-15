@@ -276,7 +276,25 @@
 	
 		//show table ajax call
 		
-			
+			$("#roleMaster").change(function(){
+				var insititueName=$("#InstituteName").val();
+				var roleMasterName=$("#roleMaster").val();
+				if(insititueName ==1||insititueName ==2 ||insititueName ==3||insititueName ==4||insititueName ==5||insititueName ==6||insititueName ==7||
+						insititueName ==8||insititueName ==9||insititueName ==10||insititueName ==11||insititueName ==12||insititueName ==13||insititueName ==14||
+						insititueName ==15||insititueName ==16||insititueName ==17)
+			  {
+					if(roleMasterName == 3||roleMasterName == 4||roleMasterName == 5||roleMasterName == 6||roleMasterName == 7||roleMasterName == 8||roleMasterName == 9)
+					{
+						alert("Please Select the Role only insititue and admin");
+			  		}
+			  }		
+				else if(insititueName == 20 ){
+					
+					if(roleMasterName ==1||roleMasterName ==2){
+						alert("You cannot select institute and admin role for Other");
+					}
+				}	
+			});
 		
 		
 	
