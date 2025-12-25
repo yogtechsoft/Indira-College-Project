@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -26,7 +28,7 @@ import com.connection.DatabaseConnection;
 @WebServlet("/saveIndentProjectDetails")
 public class saveIndentProjectDetails extends  HttpServlet {
 	//private final String UPLOAD_DIRECTORY = "/home/jarandes/upload/";
-	private final String UPLOAD_DIRECTORY = "D:\\product\\document";
+	private final String UPLOAD_DIRECTORY = "D:/product/document/";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -50,6 +52,8 @@ public class saveIndentProjectDetails extends  HttpServlet {
 		String previousRef = "";
 		String remark = "";
 		String actionRemark = "";
+		String projectStatusRemark = "";
+
 		String hodApprovedDate="";
 
 		String roleName="";
@@ -83,7 +87,8 @@ public class saveIndentProjectDetails extends  HttpServlet {
 						
 						FileItem department1 = (FileItem) multiparts.get(3);
 						department = department1.getString();
-						
+			
+					        
 						FileItem date1 = (FileItem) multiparts.get(4);
 						date = date1.getString();
 						
@@ -120,8 +125,9 @@ public class saveIndentProjectDetails extends  HttpServlet {
 						FileItem actionRMk = (FileItem) multiparts.get(15);
 						actionRemark = actionRMk.getString();
 						
-						FileItem datee = (FileItem) multiparts.get(17);
-						hodApprovedDate = datee.getString();
+						FileItem remarkProject = (FileItem) multiparts.get(16);
+						projectStatusRemark = remarkProject.getString();
+						
 					}
 				}
 			}
@@ -134,6 +140,10 @@ public class saveIndentProjectDetails extends  HttpServlet {
 
 		 Integer userId = (Integer) hs.getAttribute("userId");
 
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 		try {
 			
 			Connection con = DatabaseConnection.getConnection();
@@ -155,8 +165,8 @@ public class saveIndentProjectDetails extends  HttpServlet {
 					
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-					"insert into `tbl_save_project_dept_application`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
-					+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"')");
+					"insert into `tbl_save_project_dept_application`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data,project_department_remark)"
+					+ "values('" + InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+asad+",'"+app+"','"+hodApprovedDate+"','"+imagePath+"','"+imagePath+"','"+projectStatusRemark+"')");
 			
 					/*int data = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_director_department_application_received_dewtails`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"

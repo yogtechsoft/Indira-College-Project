@@ -343,12 +343,6 @@
 			  		</div>
 		 		</div>	
 		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label>
-						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  />
-			  		</div>
-		 		</div>	
 		  	</div>
 		  	
 		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>

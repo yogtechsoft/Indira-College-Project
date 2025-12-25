@@ -83,8 +83,8 @@ public class GenerateIndentReportCPPDepartment extends HttpServlet {
 
 			}
 
-			// PdfWriter.getInstance(document, new FileOutputStream("D:/bkp/INVOICE DETAILS_"+indenterName+".pdf"));  //for UAT
-			 PdfWriter.getInstance(document, new FileOutputStream("/home/jarandes/upload/Indent Report_"+indenterName+".pdf"));//for Prod
+			 PdfWriter.getInstance(document, new FileOutputStream("D:/bkp/INVOICE DETAILS_"+indenterName+".pdf"));  //for UAT
+			// PdfWriter.getInstance(document, new FileOutputStream("/home/jarandes/upload/Indent Report_"+indenterName+".pdf"));//for Prod
 
 
 			 document.open();
@@ -241,8 +241,8 @@ public class GenerateIndentReportCPPDepartment extends HttpServlet {
 			response.setHeader("Content-Disposition",
 			"attachment;filename=INVOICE DETAILS_"+indenterName+".pdf");
 			
-			//File file = new File("D:/bkp/INVOICE DETAILS_"+indenterName+".pdf");  //for UAT
-			File file = new File("/home/jarandes/upload/Indent Report_"+customerName+".pdf"); //for PROD
+			File file = new File("D:/bkp/INVOICE DETAILS_"+indenterName+".pdf");  //for UAT
+			//File file = new File("/home/jarandes/upload/Indent Report_"+customerName+".pdf"); //for PROD
 			FileInputStream fileIn = new FileInputStream(file);
 			ServletOutputStream out11 = response.getOutputStream();
 

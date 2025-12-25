@@ -281,14 +281,7 @@
 		 		<div class="col-md-3" id="rmk">
 					<div class="form-group">
 						<label>Enter Remark</label>
-						<input class="form-control" type="text" name="statusRemark" id="statusRemark"  />
-			  		</div>
-		 		</div>	
-		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label>
-						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  />
+						<input class="form-control" type="text" name="statusRemark" id="statusRemark" required="required"  />
 			  		</div>
 		 		</div>	
 		  	</div>
@@ -416,7 +409,7 @@
      
      $("#actionRemark").change(function(){
     	 var value=$("#actionRemark").val();
-    	 if(value=="2"){
+    	 if(value=="1"){
     		$("#rmk").show(); 
     	 }else{
      		$("#rmk").hide(); 
@@ -528,7 +521,7 @@
 				var srrNo=$("#srNo").val();
 				
 				for(var i=0;i<=dataTablesObj.length;i++){
-					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DownloadPdf?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
+					$("#fetchValue").append("<tr><td>"+dataTablesObj[i].instituteName+"</td><td>"+dataTablesObj[i].indenterName+"</td><td>"+dataTablesObj[i].department+"</td><td>"+dataTablesObj[i].date+"</td><td>"+dataTablesObj[i].workDescription+"</td><td>"+dataTablesObj[i].materialRequired+"</td><td>"+dataTablesObj[i].quantity+"</td><td>"+dataTablesObj[i].reasonWork+"</td><td>"+dataTablesObj[i].specificAgency+"</td><td>"+dataTablesObj[i].indentValue+"</td><td>"+dataTablesObj[i].deliveryRequired+"</td><td>"+dataTablesObj[i].workCompletion+"</td><td>"+dataTablesObj[i].previousRef+"</td><td>"+dataTablesObj[i].remark+"</td><td><a href='DirectorDownloadDetails?srNo=" + srrNo + "' target='_blank'>Download PDF</a></td></td></tr>")
 					}
 				
 				}	

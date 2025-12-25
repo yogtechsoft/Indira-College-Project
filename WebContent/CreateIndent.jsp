@@ -28,6 +28,10 @@
 <!-- GOOGLE FONT -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
+	
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 </head>
 <body>
@@ -166,12 +170,7 @@
 						 <input class="form-control" type="text" name="department" id="department" placeholder="Enter Department" required="required" />
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label> 
-						 <input class="form-control" type="date" name="date" id="date"  required="required" />
-					</div>
-				</div>
+				
 			</div>
 			<div class="row">
 				
@@ -224,14 +223,14 @@
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Delivery Required By (Date)</label>
-						<input class="form-control" type="text" name="deliveryRequired" id="deliveryRequired" placeholder="Enter Delivery Details" required="required" />
+						<input class="form-control" type="date" name="deliveryRequired" id="deliveryRequired" placeholder="Enter Delivery Details" required="required" />
 					</div>
 				</div>
 				
 				<div class="col-md-3">
 					<div class="form-group">
 						<label>Work Completion By (Date)</label>
-						<input class="form-control" type="text" name="workCompletion" id="workCompletion" placeholder="Enter Work Completion Details" required="required" />
+						<input class="form-control" type="date" name="workCompletion" id="workCompletion" placeholder="Enter Work Completion Details" required="required" />
 					</div>
 				</div>
 				
@@ -281,9 +280,15 @@
 	
 		//show table ajax call
 		
-			
+		/* $(document).ready(function () {
+		    var today = new Date().toISOString().split('T')[0];
+		    $('#deliveryRequired').attr('min', today);
+		}); */
 		
-		
+		var today = new Date();
+		today.setDate(today.getDate() + 1);
+		$('#deliveryRequired').attr('min', today.toISOString().split('T')[0]);
+		$('#workCompletion').attr('min', today.toISOString().split('T')[0]);
 	
 		/* (function(i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;

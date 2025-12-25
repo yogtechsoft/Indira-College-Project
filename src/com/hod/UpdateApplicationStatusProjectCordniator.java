@@ -5,6 +5,8 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,6 +49,10 @@ public class UpdateApplicationStatusProjectCordniator extends HttpServlet {
 		Blob fileData = null;
 		int nextlevelapplicationroleId=4;
 		 Integer userId = (Integer) hs.getAttribute("userId");
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			Statement statement = con.createStatement();
@@ -72,7 +78,7 @@ public class UpdateApplicationStatusProjectCordniator extends HttpServlet {
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_project_cordniator_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
 					if(addCustomer>0) {
 						
 					}
@@ -85,7 +91,7 @@ public class UpdateApplicationStatusProjectCordniator extends HttpServlet {
 					}
 					int statusRemark = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_project_cordniator_application_status_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date,name,file_data)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+"Approved"+"',"+userId+","+nextlevelapplicationroleId+","+instituteId+",'"+statusRmk+"','"+dateDetails+"','"+fileName+"','"+fileData+"')");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+"Approved"+"',"+userId+","+nextlevelapplicationroleId+","+instituteId+",'"+statusRmk+"','"+dateDetails+"','"+fileName+"','"+fileData+"')");
 					if(statusRemark>0) {
 						
 					}

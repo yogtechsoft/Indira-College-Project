@@ -5,6 +5,8 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +47,10 @@ public class UpdateApplicationStatusExcutive extends HttpServlet {
 		String waiting="Waiting for Approval";
 		String fileName="";
 		Blob fileData = null;
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 		int nextlevelapplicationroleId=7;
 		 Integer userId = (Integer) hs.getAttribute("userId");
 		try {
@@ -71,8 +77,8 @@ public class UpdateApplicationStatusExcutive extends HttpServlet {
 					hs.setAttribute("message", message);
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
-							"insert into `tbl_project_director_executive_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
+							"insert into `tbl_project_manging_director_executive_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,dirctor_remark,approved_date)"
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+statusRmk+"','"+dateAndTime+"')");
 					if(addCustomer>0) {
 						
 					}

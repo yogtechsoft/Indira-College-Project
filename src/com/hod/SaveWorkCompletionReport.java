@@ -21,7 +21,8 @@ import com.connection.DatabaseConnection;
 @WebServlet("/SaveWorkCompletionReport")
 public class SaveWorkCompletionReport extends HttpServlet {
 	
-	private final String UPLOAD_DIRECTORY = "/home/jarandes/upload/";
+	//private final String UPLOAD_DIRECTORY = "/home/jarandes/upload/";
+	private final String UPLOAD_DIRECTORY = "D:/product/document/";
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

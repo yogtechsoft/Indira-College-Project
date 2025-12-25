@@ -287,12 +287,6 @@
 			  		</div>
 		 		</div>	
 		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label>
-						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  />
-			  		</div>
-		 		</div>	
 		  	</div>
 		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
 		  			
@@ -385,9 +379,11 @@
     	 if(value=="2"){
     		$("#rmk").show(); 
     		$("#statusRemark").prop('required',true);
+    		$("#statusRemark").val(""); 
     	 }else{
-     		$("#rmk").hide(); 
-    		$("#statusRemark").prop('required',false);
+     		$("#rmk").show(); 
+     		$("#statusRemark").val(""); 
+    		$("#statusRemark").prop('required',true);
 
     	 }
      });

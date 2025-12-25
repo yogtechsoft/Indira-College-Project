@@ -304,13 +304,6 @@
 									type="text" name="statusRemark" id="statusRemark" />
 							</div>
 						</div>
-
-						<div class="col-md-3">
-							<div class="form-group">
-								<label>Date</label> <input class="form-control" type="date"
-									name="dateDetails" id="dateDetails" required="required" />
-							</div>
-						</div>
 					</div>
 					<button type="submit" class="btn btn-success" id="btnSave">Save</button>
 					<br> <br>
@@ -432,7 +425,7 @@
 
 		$("#actionRemark").change(function() {
 			var value = $("#actionRemark").val();
-			if (value == "2") {
+			if (value == "1") {
 				$("#rmk").show();
 			} else {
 				$("#rmk").hide();

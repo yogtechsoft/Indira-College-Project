@@ -5,6 +5,8 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,6 +58,10 @@ public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
 		int nextlevelapplicationroleId=6;
 		int budgetId=0;
 		String budgetName="";
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 		 Integer userId = (Integer) hs.getAttribute("userId");
 		try {
 			Connection con = DatabaseConnection.getConnection();
@@ -88,7 +94,7 @@ public class UpdateApplicationStatusPurchaseDepartment extends HttpServlet {
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tblpurchase_department_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,filename,filedata,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+fileName+"','"+fileData+"','"+budgetYearDetails+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposedDetails+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+fileName+"','"+fileData+"','"+budgetYearDetails+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposedDetails+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
 					if(addCustomer>0) {
 						
 					}

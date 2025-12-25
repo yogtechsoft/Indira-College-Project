@@ -157,13 +157,12 @@
 											<th>Work Completion By</th>
 											<th>Previous Indent Ref</th>
 											<th>Any Other Remark</th>
-											<th>Hod Remark</th>
-											<th>Hod Approve / Rejected Date</th>
-											
+											<th>remark</th>
+											<th>Approved Date</th>
 										</tr>
 									</thead>
 									<%
-										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_project_director_excutor_application_details");
+										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_project_director_executive_application_save_details");
 									while (rs.next()) {
 									%>
 									<tbody>
@@ -182,8 +181,8 @@
 											<td><%=rs.getString("workCompletion")%></td>
 											<td><%=rs.getString("previous_indent")%></td>
 											<td><%=rs.getString("other_remark")%></td>
-											<td><%=rs.getString("hod_status_remark")%></td>
-											<td><%=rs.getString("hod_approved_date")%></td>
+											<td><%=rs.getString("dirctor_remark")%></td>
+											<td><%=rs.getString("approved_date")%></td>
 										</tr>
 									</tbody>
 									<%

@@ -2,6 +2,8 @@ package com.admin;
 
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +43,11 @@ public class SaveIndentDetails extends HttpServlet {
 		int role=2;
 		String Hod_status="";
 		 Integer userId = (Integer) hs.getAttribute("userId");
+		 
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 
 		try {
 			
@@ -54,7 +61,7 @@ public class SaveIndentDetails extends HttpServlet {
 			
 			int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 					"insert into `tbl_indent_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date)"
-					+ "values('" + instituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+InstituteName+",'"+Hod_status+"','"+Hod_status+"')");
+					+ "values('" + instituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+InstituteName+",'"+Hod_status+"','"+Hod_status+"')");
 			if (addCustomer > 0) {
 				
 				String message="Data Added successfully.";

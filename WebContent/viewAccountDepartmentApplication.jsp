@@ -157,13 +157,13 @@
 											<th>Work Completion By</th>
 											<th>Previous Indent Ref</th>
 											<th>Any Other Remark</th>
-											<th>Hod Remark</th>
-											<th>Hod Approve / Rejected Date</th>
+											<th> Remark</th>
+											<th>Approved Date</th>
 											
 										</tr>
 									</thead>
 									<%
-										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_account_department_application_received_details");
+										ResultSet rs = DatabaseConnection.getResultFromSqlQuery("select * from tbl_account_department_application_save_details");
 									while (rs.next()) {
 									%>
 									<tbody>

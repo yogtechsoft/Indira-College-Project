@@ -5,6 +5,8 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,6 +60,10 @@ public class UpdateApplicationStatusAccountDetails extends HttpServlet {
 		int getBudgetId=0;
 		String budgetName=""; 
 		String year="";
+		 LocalDateTime now = LocalDateTime.now();
+	        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+	        String dateAndTime = now.format(formatter);
 		 Integer userId = (Integer) hs.getAttribute("userId");
 		try {
 			Connection con = DatabaseConnection.getConnection();
@@ -89,7 +95,7 @@ public class UpdateApplicationStatusAccountDetails extends HttpServlet {
 				if(budgetId.equals("2") || budgetId.equals("5")) {
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_account_department_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
-						+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+year+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposed+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
+						+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+statusRmk+"','"+dateAndTime+"','"+year+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposed+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
 					if(addCustomer>0) {
 						
 					}
@@ -103,7 +109,7 @@ public class UpdateApplicationStatusAccountDetails extends HttpServlet {
 				}else {
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_account_department_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date,provision_year,balance_provision,balance_provision_amount,proposed_expenses_amount,balance_after_proposed_amount,expenses_till_date,budget_type,budget_id)"
-						+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"','"+year+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposed+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
+						+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+",'"+statusRmk+"','"+dateAndTime+"','"+year+"','"+balanceProvision+"','"+provisionAmount+"','"+expensesAmount+"','"+balanceProposed+"','"+expensesTillDate+"','"+budgetName+"',"+budgetId+")");
 					if(addCustomer>0) {
 						
 					}

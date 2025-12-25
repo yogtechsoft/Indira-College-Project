@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 import java.util.UUID;
 
@@ -43,6 +45,10 @@ public class UpdateApplicationStatus extends HttpServlet {
 		String remark = request.getParameter("remark");
 		String status="Waiting For Approval";
 		int role=3;
+		LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
+
+        String dateAndTime = now.format(formatter);
 		 Integer userId = (Integer) hs.getAttribute("userId");
 		try {
 			Connection con = DatabaseConnection.getConnection();
@@ -63,14 +69,14 @@ public class UpdateApplicationStatus extends HttpServlet {
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_hod_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+asas+"',"+userId+","+role+",'"+asas+"','"+dateDetails+"')");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + dateAndTime + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+statusRmk+"',"+userId+","+role+",'"+statusRmk+"','"+dateAndTime+"')");
 					if(addCustomer>0) {
 						
 					}
 					
 					int insert = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_project_department_application_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,institute_id,hod_status_remark,hod_approved_date)"
-							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+instituteId+",'"+asas+"','"+dateDetails+"')");
+							+ "values('" +InstituteName+ "','" + indenterName + "','" + department + "','" + date + "','" + discription + "','" + materialRequired + "','"+ quantity + "','" + reasonWork + "','" + specificAgency + "','" + indentValue + "','" + deliveryRequired + "','"+ workCompletion + "','" + previousRef +"','"+ remark +"','"+status+"',"+userId+","+role+","+instituteId+",'"+statusRmk+"','"+dateAndTime+"')");
 					if(insert>0) {
 						
 					}

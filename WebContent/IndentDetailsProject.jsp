@@ -278,6 +278,13 @@
 			  		</div>
 		 		</div>	
 		 		
+		 		<div class="col-md-3" id="statusRemarkDiv">
+					<div class="form-group">
+						<label>Enter Remark</label>
+						<input class="form-control" type="text" name="statusRemark" id="statusRemark" placeholder="Enter the Remark" required="required" />
+			  		</div>
+		 		</div>	
+		 		
 		 		<div class="col-md-3" id="rmk">
 					<div class="form-group">
 						<label>Upload Document</label>
@@ -285,12 +292,6 @@
 			  		</div>
 		 		</div>	
 		 		
-		 		<div class="col-md-3">
-					<div class="form-group">
-						<label>Date</label>
-						<input class="form-control" type="date" name="dateDetails" id="dateDetails"  required="required" />
-			  		</div>
-		 		</div>	
 		  	</div>
 		  			<button type="submit" class="btn btn-success" id="btnSave">Save</button>
 		  			<br>
@@ -399,6 +400,7 @@
 	
 	 window.onload = function() {
          document.getElementById("rmk").style.display = "none"; 
+         document.getElementById("statusRemarkDiv").style.display = "none"; 
          document.getElementById("instituteNameDetails").style.display = "none"; 
          document.getElementById("indentName").style.display = "none"; 
          document.getElementById("materialKnow").style.display = "none"; 
@@ -419,8 +421,10 @@
     	 var value=$("#actionRemark").val();
     	 if(value=="1"){
     		$("#rmk").show(); 
+    		$("#statusRemarkDiv").show(); 
     	 }else{
      		$("#rmk").hide(); 
+     		$("#statusRemarkDiv").hide(); 
     	 }
      });
 	
