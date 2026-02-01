@@ -27,6 +27,7 @@ public class IndentReportDetails {
 	private String balanceAfterProposedAmount;
 	private String expensesTilDate;
 	private String budgetType;
+	private String pending_status;
 
 	
 	public String getIndenterName() {
@@ -178,6 +179,12 @@ public class IndentReportDetails {
 	}
 	public void setProposedExpesnseAmount(String proposedExpesnseAmount) {
 		this.proposedExpesnseAmount = proposedExpesnseAmount;
+	}
+	public String getPending_status() {
+		return pending_status;
+	}
+	public void setPending_status(String pending_status) {
+		this.pending_status = pending_status;
 	}
 	
 	

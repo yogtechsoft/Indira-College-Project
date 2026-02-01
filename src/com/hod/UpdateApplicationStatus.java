@@ -46,6 +46,7 @@ public class UpdateApplicationStatus extends HttpServlet {
 		String status="Waiting For Approval";
 		int role=3;
 		LocalDateTime now = LocalDateTime.now();
+		String roleName="";
         DateTimeFormatter formatter =DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm:ss a");
 
         String dateAndTime = now.format(formatter);
@@ -61,11 +62,19 @@ public class UpdateApplicationStatus extends HttpServlet {
 							instituteId=captchResultSet.getInt(1);
 						}	
 				
+				ResultSet roleMaster = DatabaseConnection.getResultFromSqlQuery("SELECT * from mst_role_master where id ="+role);
+				while(roleMaster.next()) {
+					roleName=roleMaster.getString(2);
+				}
+								
+						
 				String asas="Approved";
-				int i = statement.executeUpdate("UPDATE tbl_indent_save_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"' where id="+srNO);
+				int i = statement.executeUpdate("UPDATE tbl_indent_save_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"',tracking_status='"+roleName+"',role_id="+role+" where id="+srNO);
 					String message="Application Approved successfully";
+					
 		
 					hs.setAttribute("message", message);
+					
 					
 					int addCustomer = DatabaseConnection.insertUpdateFromSqlQuery(
 							"insert into `tbl_hod_application_save_details`(institute_name,indenter_name,department,date,work_descrption,material_required,qunatitiy,location_reason_work,specific_agency,estimated_indent_value,delivery_requred,workCompletion,previous_indent,other_remark,status,user_id,role_id,hod_status_remark,hod_approved_date)"

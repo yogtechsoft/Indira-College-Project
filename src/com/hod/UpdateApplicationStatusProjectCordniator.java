@@ -44,6 +44,7 @@ public class UpdateApplicationStatusProjectCordniator extends HttpServlet {
 		String remark = request.getParameter("remark");
 		String status="Approved";
 		int role=4;
+		int projectCordnitor=9;	
 		String waiting="Waiting for Approval";
 		String fileName="";
 		Blob fileData = null;
@@ -69,6 +70,29 @@ public class UpdateApplicationStatusProjectCordniator extends HttpServlet {
 							fileName=data.getString(1);
 							fileData=data.getBlob(2);
 						}	
+						String roleName="";
+						ResultSet roleMaster = DatabaseConnection.getResultFromSqlQuery("SELECT * from mst_role_master where id ="+role);
+						while(roleMaster.next()) {
+							roleName=roleMaster.getString(2);
+						}
+						
+						ResultSet insitutueId = DatabaseConnection.getResultFromSqlQuery("select id from mst_institute_name where institue_name='"+InstituteName+"'");
+						int institueid=0;
+						while(insitutueId.next()) {
+							institueid=insitutueId.getInt(1);
+						}
+						
+						ResultSet indentDetails = DatabaseConnection.getResultFromSqlQuery("select * from tbl_indent_save_details where role_id="+projectCordnitor+" and institute_id="+institueid);
+						int IntentPrimaryId=0;
+						while(indentDetails.next()) {
+							IntentPrimaryId=indentDetails.getInt("id");
+						}
+						
+						String sd="Approved";
+						int a = statement.executeUpdate("UPDATE tbl_indent_save_details set status='Approved',hod_status_remark='Approved',hod_approved_date ='"+dateDetails+"',tracking_status='"+roleName+"',role_id="+nextlevelapplicationroleId+" where id="+IntentPrimaryId);
+						if(a>0) {
+							String ass="Record Updated!";
+						}
 						
 						
 				String asas="Approved";
